@@ -1,46 +1,46 @@
 #: src/menus/mainMenus.cpp:73
 msgid "Version: {version}"
-msgstr ""
+msgstr "Verzió: {version}"
 
 #: src/menus/mainMenus.cpp:80
 msgid "Start server"
-msgstr ""
+msgstr "Szerver Indítása"
 
 #: src/menus/mainMenus.cpp:89
 msgid "Start client"
-msgstr ""
+msgstr "Kliens indítása"
 
 #: src/menus/mainMenus.cpp:94
 msgid "Options"
-msgstr ""
+msgstr "Beállítások"
 
 #: src/menus/mainMenus.cpp:99
 msgid "Quit"
-msgstr ""
+msgstr "Kilépés"
 
 #: src/menus/mainMenus.cpp:103
 msgid "Tutorials"
-msgstr ""
+msgstr "Oktató anyagok"
 
 #: src/menus/mainMenus.cpp:115
 msgid ""
 "Calibrate\n"
 "Touchscreen"
-msgstr ""
+msgstr "Érintő képernyő\nkalibrálása"
 
 msgid "Graphics Options"
-msgstr ""
+msgstr "Grafikai beállítások"
 
 #: src/menus/optionsMenu.cpp:49
 msgid "Fullscreen toggle"
-msgstr ""
+msgstr "Váltás teljes képernyőre"
 
 msgid "Sound Options"
-msgstr ""
+msgstr "Hang beállítások"
 
 #: src/menus/optionsMenu.cpp:81 src/menus/optionsMenu.cpp:86
 msgid "Sound Volume: {volume}%"
-msgstr ""
+msgstr "Hangerő: {volume}%"
 
 #: scripts/shipTemplates_Corvette.lua:15
 msgid ""
@@ -147,248 +147,248 @@ msgstr ""
 #: src/shipTemplate.cpp:378
 msgctxt "system"
 msgid "Reactor"
-msgstr ""
+msgstr "Reaktor"
 
 #: src/shipTemplate.cpp:379
 msgctxt "system"
 msgid "Beam Weapons"
-msgstr ""
+msgstr "Lézer fegyverek"
 
 #: src/shipTemplate.cpp:380
 msgctxt "system"
 msgid "Missile System"
-msgstr ""
+msgstr "Rakéta fegyverek"
 
 #: src/shipTemplate.cpp:381
 msgctxt "system"
 msgid "Maneuvering"
-msgstr ""
+msgstr "Manőver Rendszer"
 
 #: src/shipTemplate.cpp:382
 msgctxt "system"
 msgid "Impulse Engines"
-msgstr ""
+msgstr "Impulzus meghajtó"
 
 #: src/shipTemplate.cpp:383
 msgctxt "system"
 msgid "Warp Drive"
-msgstr ""
+msgstr "Térhajlító Hajtómű"
 
 #: src/shipTemplate.cpp:384
 msgctxt "system"
 msgid "Jump Drive"
-msgstr ""
+msgstr "Ugró Hajtómű"
 
 #: src/shipTemplate.cpp:385
 msgctxt "system"
 msgid "Front Shield Generator"
-msgstr ""
+msgstr "Elülső Pajzs"
 
 #: src/shipTemplate.cpp:386
 msgctxt "system"
 msgid "Rear Shield Generator"
-msgstr ""
+msgstr "Hátsó Pajzs"
 
 #: src/tutorialGame.cpp:92
 msgid "Next"
-msgstr ""
+msgstr "Következő"
 
 #: src/tutorialGame.cpp:99
 msgid "Reset"
-msgstr ""
+msgstr "Alap állás"
 
 #: src/menus/mainMenus.cpp:75
 msgid "Your name:"
-msgstr ""
+msgstr "Játékos név:"
 
 #: src/menus/serverCreationScreen.cpp:52
 msgid "Server configuration"
-msgstr ""
+msgstr "Szerver konfiguráció"
 
 #: src/menus/serverCreationScreen.cpp:57
 msgid "Server name: "
-msgstr ""
+msgstr "Szerver név: "
 
 #: src/menus/serverCreationScreen.cpp:63
 msgid "Server password: "
-msgstr ""
+msgstr "Szerver jelszó"
 
 #: src/menus/serverCreationScreen.cpp:75
 msgid "Server IP: "
-msgstr ""
+msgstr "Szerver IP: "
 
 #: src/menus/serverCreationScreen.cpp:81
 msgid "Server visibility: "
-msgstr ""
+msgstr "Szerver elérhetősége: "
 
 #: src/menus/serverCreationScreen.cpp:87
 msgid "LAN only"
-msgstr ""
+msgstr "csak LAN"
 
 #: src/menus/serverBrowseMenu.cpp:36 src/menus/serverCreationScreen.cpp:87
 msgid "Internet"
-msgstr ""
+msgstr "Internet"
 
 #: src/menus/serverCreationScreen.cpp:90
 msgid "Player ship options"
-msgstr ""
+msgstr "Játékos hajó beállítások"
 
 #: src/menus/serverCreationScreen.cpp:95
 msgid "Warp/Jump: "
-msgstr ""
+msgstr "Térhajlító/Ugró"
 
 #: src/menus/serverCreationScreen.cpp:98
 msgctxt "warp/jump"
 msgid "Ship default"
-msgstr ""
+msgstr "Hajó típusa szerint"
 
 #: src/menus/serverCreationScreen.cpp:98
 msgctxt "warp/jump"
 msgid "Warp drive"
-msgstr ""
+msgstr "Térhajlító hajtómű"
 
 #: src/menus/serverCreationScreen.cpp:98
 msgctxt "warp/jump"
 msgid "Jump drive"
-msgstr ""
+msgstr "Ugró hajtómű"
 
 #: src/menus/serverCreationScreen.cpp:98
 msgctxt "warp/jump"
 msgid "Both"
-msgstr ""
+msgstr "Mindkettő"
 
 #: src/menus/serverCreationScreen.cpp:98
 msgctxt "warp/jump"
 msgid "Neither"
-msgstr ""
+msgstr "Egyiksem"
 
 #: src/menus/serverCreationScreen.cpp:101
 msgid "Main screen options"
-msgstr ""
+msgstr "Főképernyő beállítások"
 
 #: src/menus/serverCreationScreen.cpp:106
 msgid "Tactical radar"
-msgstr ""
+msgstr "Taktikai radar"
 
 #: src/menus/serverCreationScreen.cpp:109
 msgid "Long range radar"
-msgstr ""
+msgstr "Nagy hatótávú radar"
 
 #: src/menus/serverCreationScreen.cpp:114
 msgid "Game rules"
-msgstr ""
+msgstr "Játék szabályok"
 
 #: src/menus/serverCreationScreen.cpp:119
 msgid "Scan complexity: "
-msgstr ""
+msgstr "Szkennelés nehézsége"
 
 #: src/menus/serverCreationScreen.cpp:122
 msgctxt "scanning"
 msgid "None (delay)"
-msgstr ""
+msgstr "Nincs (késlelteés)"
 
 #: src/menus/serverCreationScreen.cpp:122
 msgctxt "scanning"
 msgid "Simple"
-msgstr ""
+msgstr "Egyszerű"
 
 #: src/menus/serverCreationScreen.cpp:122
 msgctxt "scanning"
 msgid "Normal"
-msgstr ""
+msgstr "Normális"
 
 #: src/menus/serverCreationScreen.cpp:122
 msgctxt "scanning"
 msgid "Advanced"
-msgstr ""
+msgstr "Fejlett"
 
 #: src/menus/serverCreationScreen.cpp:127
 msgid "Hacking difficulty: "
-msgstr ""
+msgstr "Hekkelés nehézsége"
 
 #: src/menus/serverCreationScreen.cpp:130
 msgctxt "hacking"
 msgid "Simple"
-msgstr ""
+msgstr "Egyszerű"
 
 #: src/menus/serverCreationScreen.cpp:130
 msgctxt "hacking"
 msgid "Normal"
-msgstr ""
+msgstr "Normális"
 
 #: src/menus/serverCreationScreen.cpp:130
 msgctxt "hacking"
 msgid "Difficult"
-msgstr ""
+msgstr "Nehéz"
 
 #: src/menus/serverCreationScreen.cpp:130
 msgctxt "hacking"
 msgid "Fiendish"
-msgstr ""
+msgstr "Szöernyűséges"
 
 #: src/menus/serverCreationScreen.cpp:135
 msgid "Hacking type: "
-msgstr ""
+msgstr "Hekkelés típusa: "
 
 #: src/menus/serverCreationScreen.cpp:138
 msgctxt "hacking"
 msgid "Mine"
-msgstr ""
+msgstr "Aknakereső"
 
 #: src/menus/serverCreationScreen.cpp:138
 msgctxt "hacking"
 msgid "Lights"
-msgstr ""
+msgstr "Fonákolós"
 
 #: src/menus/serverCreationScreen.cpp:138
 msgctxt "hacking"
 msgid "All"
-msgstr ""
+msgstr "Mindegyik"
 
 #: src/menus/serverCreationScreen.cpp:143
 msgid "Beam/shield frequencies"
-msgstr ""
+msgstr "Lézer/pajzs frekvencia"
 
 #: src/menus/serverCreationScreen.cpp:147
 msgid "Per-system damage"
-msgstr ""
+msgstr "Alrendszer sérülés"
 
 #: src/menus/serverCreationScreen.cpp:153
 msgid "Scenario"
-msgstr ""
+msgstr "Szituáció"
 
 #: src/menus/serverCreationScreen.cpp:172
 msgid "Variation: "
-msgstr ""
+msgstr "Variáció"
 
 #: src/menus/serverCreationScreen.cpp:186
 msgid "Close server"
-msgstr ""
+msgstr "Szerver leállítása"
 
 #: src/menus/serverCreationScreen.cpp:193
 msgid "Start scenario"
-msgstr ""
+msgstr "Szimuláció indítása"
 
 #: src/menus/serverCreationScreen.cpp:235
 msgctxt "variation"
 msgid "None"
-msgstr ""
+msgstr "Egyiksem"
 
 msgid "No variation."
-msgstr ""
+msgstr "Alapértelmezett"
 
 #: src/menus/serverCreationScreen.cpp:243
 msgid "No variation selected. Play the scenario as intended."
-msgstr ""
+msgstr "Nem lett kiválasztva egy variáns sem. A tervező által elképzelt módon fog zajlani."
 
 #: src/menus/tutorialMenu.cpp:59
 msgid "Start Tutorial"
-msgstr ""
+msgstr "Oktatás indítása"
 
 #: src/menus/tutorialMenu.cpp:66 src/screenComponents/databaseView.cpp:105
 #: src/screenComponents/databaseView.cpp:109
 msgid "Back"
-msgstr ""
+msgstr "Vissza"
 
 #: src/screens/crew4/tacticalScreen.cpp:69
 #: src/screens/crew6/engineeringScreen.cpp:34
@@ -396,104 +396,104 @@ msgstr ""
 #: src/screens/crew1/singlePilotScreen.cpp:73
 #: src/screens/extra/powerManagement.cpp:20
 msgid "Energy"
-msgstr ""
+msgstr "Energia"
 
 #: src/screens/crew6/engineeringScreen.cpp:36
 msgctxt "health"
 msgid "Hull"
-msgstr ""
+msgstr "Hajó test"
 
 #: src/screens/crew6/engineeringScreen.cpp:38
 #: src/screens/crew6/weaponsScreen.cpp:81
 msgctxt "shields"
 msgid "Front"
-msgstr ""
+msgstr "Elülső"
 
 #: src/screens/crew6/engineeringScreen.cpp:40
 #: src/screens/crew6/weaponsScreen.cpp:83
 msgctxt "shields"
 msgid "Rear"
-msgstr ""
+msgstr "Hátsó"
 
 #: src/screens/crew6/engineeringScreen.cpp:42
 msgctxt "total"
 msgid "Coolant"
-msgstr ""
+msgstr "Hűtő folyadék"
 
 #: src/screens/crew6/engineeringScreen.cpp:126
 msgctxt "slider"
 msgid "Power"
-msgstr ""
+msgstr "Energia"
 
 #: src/screens/crew6/engineeringScreen.cpp:128
 msgctxt "slider"
 msgid "Coolant"
-msgstr ""
+msgstr "Hűtő folyadék"
 
 #: src/screens/crew6/engineeringScreen.cpp:179
 #: src/screens/crew6/engineeringScreen.cpp:259
 msgid "{energy}/min"
-msgstr ""
+msgstr "{energy}/perc"
 
 #: src/screens/crew6/engineeringScreen.cpp:259
 msgid "Energy production"
-msgstr ""
+msgstr "Energia termelés"
 
 #: src/screens/crew6/engineeringScreen.cpp:262
 msgid "Firing rate"
-msgstr ""
+msgstr "Tűz sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:275
 msgctxt "missile"
 msgid "Reload rate"
-msgstr ""
+msgstr "Újratöltés sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:278
 msgid "Turning speed"
-msgstr ""
+msgstr "Fordulékonyság"
 
 #: src/screens/crew6/engineeringScreen.cpp:280
 #: src/screens/crew6/engineeringScreen.cpp:285
 msgid "Combat recharge rate"
-msgstr ""
+msgstr "Harci újratőltési sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:283
 msgid "Impulse speed"
-msgstr ""
+msgstr "Impulzus sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:288
 msgid "Warp drive speed"
-msgstr ""
+msgstr "Térhajlító sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:291
 msgid "Jump drive recharge rate"
-msgstr ""
+msgstr "Ugró hajtómű újratőltés sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:292
 msgid "Jump drive jump speed"
-msgstr ""
+msgstr "Ugró hajtómű sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:296
 #: src/screens/crew6/engineeringScreen.cpp:310
 msgctxt "shields"
 msgid "Calibration speed"
-msgstr ""
+msgstr "Kalibrációs sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:297
 #: src/screens/crew6/engineeringScreen.cpp:311
 msgctxt "shields"
 msgid "Charge rate"
-msgstr ""
+msgstr "Feltöltési sebesség"
 
 #: src/screens/crew6/engineeringScreen.cpp:303
 #: src/screens/crew6/engineeringScreen.cpp:317
 msgid "Extra damage"
-msgstr ""
+msgstr "Extra sebzés"
 
 #: src/screens/crew6/engineeringScreen.cpp:305
 #: src/screens/crew6/engineeringScreen.cpp:319
 msgid "Damage negate"
-msgstr ""
+msgstr "Sebzés tűrés"
 
 #: src/screens/crew6/scienceScreen.cpp:94 src/screens/crew6/relayScreen.cpp:81
 msgid "Callsign"
@@ -502,319 +502,319 @@ msgstr ""
 #: src/screens/crew6/scienceScreen.cpp:96
 msgctxt "science"
 msgid "Distance"
-msgstr ""
+msgstr "Távolság"
 
 #: src/screens/crew6/scienceScreen.cpp:98
 msgid "Bearing"
-msgstr ""
+msgstr "Irányzék"
 
 #: src/screens/crew6/scienceScreen.cpp:100
 msgid "Rel. Speed"
-msgstr ""
+msgstr "Relatív Sebesség"
 
 #: src/screens/crew6/scienceScreen.cpp:102 src/screens/crew6/relayScreen.cpp:84
 msgid "Faction"
-msgstr ""
+msgstr "Frakció"
 
 #: src/screens/crew6/scienceScreen.cpp:104
 msgctxt "science"
 msgid "Type"
-msgstr ""
+msgstr "Típus"
 
 #: src/screens/crew6/scienceScreen.cpp:106
 msgctxt "database"
 msgid "DB"
-msgstr ""
+msgstr "Adatbázis"
 
 #: src/screens/crew6/scienceScreen.cpp:120
 msgctxt "science"
 msgid "Shields"
-msgstr ""
+msgstr "Pajzsok"
 
 #: src/screens/crew6/scienceScreen.cpp:122
 msgctxt "science"
 msgid "Hull"
-msgstr ""
+msgstr "Hajó test"
 
 #: src/screens/crew6/scienceScreen.cpp:202
 #: src/screens/crew6/scienceScreen.cpp:244 src/screens/crew6/relayScreen.cpp:88
 msgid "Zoom: {zoom}x"
-msgstr ""
+msgstr "Nagyítás: {zoom}x"
 
 #: src/screens/crew6/scienceScreen.cpp:215
 msgctxt "button"
 msgid "Radar"
-msgstr ""
+msgstr "Radar"
 
 #: src/screens/crew6/scienceScreen.cpp:215
 msgctxt "button"
 msgid "Database"
-msgstr ""
+msgstr "Adatbázis"
 
 #: src/screens/crew4/operationsScreen.cpp:67
 #: src/screens/crew6/relayScreen.cpp:101
 #: src/screens/crew1/singlePilotScreen.cpp:102
 msgid "Open Comms"
-msgstr ""
+msgstr "Kapcsolat nyitása"
 
 #: src/screens/crew6/relayScreen.cpp:103
 msgid "Link to Comms"
-msgstr ""
+msgstr "Kapcsolás a Kommunikátorhoz"
 
 #: src/screens/crew6/relayScreen.cpp:107
 msgid "Start hacking"
-msgstr ""
+msgstr "Hekkelés indítása"
 
 #: src/screens/crew6/relayScreen.cpp:117
 msgid "Link to Science"
-msgstr ""
+msgstr "Kapcsolás a Tudományos tiszthez"
 
 #: src/screens/crew4/operationsScreen.cpp:70
 #: src/screens/crew6/relayScreen.cpp:126
 msgid "Place Waypoint"
-msgstr ""
+msgstr "Navigációs pont létrehozása"
 
 #: src/screens/crew4/operationsScreen.cpp:75
 #: src/screens/crew6/relayScreen.cpp:131
 msgid "Delete Waypoint"
-msgstr ""
+msgstr "Navigációs pont törlése"
 
 #: src/screens/crew6/relayScreen.cpp:140 src/screens/crew6/relayScreen.cpp:289
 msgid "Launch Probe"
-msgstr ""
+msgstr "Felderítő indítása"
 
 #: src/screens/gm/tweak.cpp:613
 msgid "Reputation:"
-msgstr ""
+msgstr "Befolyás"
 
 #: src/screens/crew6/relayScreen.cpp:159
 msgid "Alert level"
-msgstr ""
+msgstr "Készenléti szint"
 
 #: src/screens/crew6/weaponsScreen.cpp:64
 msgid "Beam info"
-msgstr ""
+msgstr "Lézer információ"
 
 #: src/screens/crew4/tacticalScreen.cpp:71 src/screens/crew6/helmsScreen.cpp:72
 #: src/screens/crew1/singlePilotScreen.cpp:75
 msgid "Heading"
-msgstr ""
+msgstr "Irányzék"
 
 #: src/screens/crew4/tacticalScreen.cpp:73 src/screens/crew6/helmsScreen.cpp:74
 #: src/screens/crew1/singlePilotScreen.cpp:77
 msgid "Speed"
-msgstr ""
+msgstr "Sebesség"
 
 #: src/screens/crew4/tacticalScreen.cpp:121
 #: src/screens/crew6/helmsScreen.cpp:96
 msgid "{value} {unit}/min"
-msgstr ""
+msgstr "{value} {unit}/perc"
 
 #: src/screens/gm/tweak.cpp:543
 msgid "{system} health"
-msgstr ""
+msgstr "Épség"
 
 #: src/screens/gm/tweak.cpp:562
 msgid "{system} heat"
-msgstr ""
+msgstr "hőmérséklet"
 
 #: src/screenComponents/aimLock.cpp:11
 msgctxt "missile"
 msgid "Lock"
-msgstr ""
+msgstr "Rögzítés"
 
 #: src/screenComponents/missileTubeControls.cpp:107
 #: src/screenComponents/missileTubeControls.cpp:121
 #: src/screenComponents/missileTubeControls.cpp:139
 msgctxt "missile"
 msgid "Load"
-msgstr ""
+msgstr "Betőltés"
 
 #: src/screenComponents/missileTubeControls.cpp:109
 msgctxt "missile"
 msgid "Empty"
-msgstr ""
+msgstr "Üres"
 
 #: src/screenComponents/missileTubeControls.cpp:114
 #: src/screenComponents/missileTubeControls.cpp:130
 msgctxt "missile"
 msgid "Unload"
-msgstr ""
+msgstr "Ürítés"
 
 #: src/screenComponents/missileTubeControls.cpp:126
 msgctxt "missile"
 msgid "Loading"
-msgstr ""
+msgstr "Betőltés..."
 
 #: src/screenComponents/missileTubeControls.cpp:135
 msgctxt "missile"
 msgid "Unloading"
-msgstr ""
+msgstr "Ürítés..."
 
 #: src/screenComponents/missileTubeControls.cpp:141
 msgctxt "missile"
 msgid "Firing"
-msgstr ""
+msgstr "Tüzelés"
 
 #: src/screenComponents/selfDestructEntry.cpp:22
 msgid "Self destruct activated!"
-msgstr ""
+msgstr "Önmegsemmisítés aktiválva!"
 
 #: src/screenComponents/selfDestructEntry.cpp:67
 msgid "Code [{letter}]: {self_destruct_code}"
-msgstr ""
+msgstr "[{letter}] kód: {self_destruct_code}"
 
 #: src/screenComponents/selfDestructEntry.cpp:80
 msgctxt "selfdestruct"
 msgid "Enter [{letter}]"
-msgstr ""
+msgstr "Írja be a [{letter}] kódot!"
 
 #: src/screenComponents/dockingButton.cpp:42
 msgid "Request Dock"
-msgstr ""
+msgstr "Dokkolás igénylése"
 
 #: src/screenComponents/dockingButton.cpp:51
 msgid "Cancel Docking"
-msgstr ""
+msgstr "Dokkolás megszakítása"
 
 #: src/screenComponents/dockingButton.cpp:55
 msgid "Undock"
-msgstr ""
+msgstr "Kihajózás"
 
 #: src/screenComponents/shieldsEnableButton.cpp:23
 msgctxt "shields"
 msgid "Calibrating"
-msgstr ""
+msgstr "Kalibráció..."
 
 #: src/screenComponents/shieldsEnableButton.cpp:43
 msgctxt "shields"
 msgid "ON"
-msgstr ""
+msgstr "Aktív"
 
 #: src/screenComponents/shieldsEnableButton.cpp:43
 msgctxt "shields"
 msgid "OFF"
-msgstr ""
+msgstr "Inaktív"
 
 #: src/screenComponents/shieldsEnableButton.cpp:45
 msgid "{frequency} Shields: {status}"
-msgstr ""
+msgstr "{frequency} Pajzsok: {status}"
 
 #: src/screenComponents/shieldsEnableButton.cpp:47
 msgid "Shields: {status}"
-msgstr ""
+msgstr "Pajzsok: {status}"
 
 #: src/screenComponents/selfDestructButton.cpp:12
 msgid "Self destruct"
-msgstr ""
+msgstr "Önmegsemmisítés"
 
 #: src/screenComponents/selfDestructButton.cpp:19
 msgctxt "selfdestruct"
 msgid "Confirm!"
-msgstr ""
+msgstr "Megerősítés"
 
 #: src/screenComponents/selfDestructButton.cpp:25
 msgctxt "selfdestruct"
 msgid "Cancel"
-msgstr ""
+msgstr "Visszavonás"
 
 #: src/screenComponents/shieldFreqencySelect.cpp:23
 msgctxt "shields"
 msgid "Calibrate"
-msgstr ""
+msgstr "Kalibrálás"
 
 #: src/screenComponents/jumpControls.cpp:22
 #: src/screenComponents/jumpControls.cpp:53
 msgctxt "jumpcontrol"
 msgid "Distance"
-msgstr ""
+msgstr "Távolság"
 
 #: src/screenComponents/jumpControls.cpp:25
 msgctxt "jumpcontrol"
 msgid "Jump"
-msgstr ""
+msgstr "Ugrás"
 
 #: src/screenComponents/jumpControls.cpp:39
 msgctxt "jumpcontrol"
 msgid "Jump in"
-msgstr ""
+msgstr "Ugrás"
 
 #: src/screenComponents/jumpControls.cpp:46
 msgctxt "jumpcontrol"
 msgid "Charging"
-msgstr ""
+msgstr "Tőltés..."
 
 #: src/screenComponents/impulseControls.cpp:18
 msgctxt "slider"
 msgid "Impulse"
-msgstr ""
+msgstr "Impulzus"
 
 #: src/screenComponents/beamTargetSelector.cpp:9
 msgctxt "target"
 msgid "Hull"
-msgstr ""
+msgstr "Hajó test"
 
 #: src/screenComponents/indicatorOverlays.cpp:132
 msgid "{faction} wins"
-msgstr ""
+msgstr "{faction} győzelem"
 
 #: src/screenComponents/combatManeuver.cpp:16
 msgid "Combat maneuver"
-msgstr ""
+msgstr "Harci manőver"
 
 #: src/screenComponents/warpControls.cpp:41
 msgctxt "slider"
 msgid "Warp"
-msgstr ""
+msgstr "Térhajlítás"
 
 #: src/spaceObjects/spaceship.cpp:1485
 msgctxt "missile"
 msgid "Homing"
-msgstr ""
+msgstr "Követő"
 
 #: src/spaceObjects/spaceship.cpp:1487
 msgctxt "missile"
 msgid "Nuke"
-msgstr ""
+msgstr "Atom"
 
 #: src/spaceObjects/spaceship.cpp:1489
 msgctxt "missile"
 msgid "Mine"
-msgstr ""
+msgstr "Akna"
 
 #: src/spaceObjects/spaceship.cpp:1491
 msgctxt "missile"
 msgid "EMP"
-msgstr ""
+msgstr "EMP"
 
 #: src/spaceObjects/spaceship.cpp:1493
 msgctxt "missile"
 msgid "HVLI"
-msgstr ""
+msgstr "HVLI"
 
 #: src/spaceObjects/spaceshipParts/weaponTube.cpp:312
 msgctxt "tube"
 msgid "Front"
-msgstr ""
+msgstr "Elülső"
 
 #: src/spaceObjects/spaceshipParts/weaponTube.cpp:314
 msgctxt "tube"
 msgid "Right"
-msgstr ""
+msgstr "Jobb"
 
 #: src/spaceObjects/spaceshipParts/weaponTube.cpp:316
 msgctxt "tube"
 msgid "Left"
-msgstr ""
+msgstr "Bal"
 
 #: src/spaceObjects/spaceshipParts/weaponTube.cpp:318
 msgctxt "tube"
 msgid "Rear"
-msgstr ""
+msgstr "Hátsó"
 
 #: scripts/shipTemplates_Corvette.lua:14
 msgid "Atlantis X23"
-msgstr ""
+msgstr "Atlantisz X23"
 
 #: scripts/shipTemplates_Corvette.lua:14 scripts/shipTemplates_Corvette.lua:83
 #: scripts/shipTemplates_Corvette.lua:101
@@ -828,23 +828,23 @@ msgstr ""
 #: scripts/shipTemplates_Corvette.lua:301
 #: scripts/shipTemplates_Corvette.lua:314
 msgid "Corvette"
-msgstr ""
+msgstr "Korvett"
 
 #: scripts/shipTemplates_Corvette.lua:14 scripts/shipTemplates_Corvette.lua:83
 msgid "Destroyer"
-msgstr ""
+msgstr "Romboló"
 
 #: scripts/shipTemplates_Corvette.lua:33
 msgid "Atlantis"
-msgstr ""
+msgstr "Atlantisz"
 
 #: scripts/shipTemplates_Corvette.lua:83
 msgid "Starhammer II"
-msgstr ""
+msgstr "Csillag-pöröly II"
 
 #: scripts/shipTemplates_Corvette.lua:101
 msgid "Crucible"
-msgstr ""
+msgstr "Hódító"
 
 #: scripts/shipTemplates_Corvette.lua:101
 msgid "Popper"
@@ -856,19 +856,19 @@ msgstr ""
 
 #: scripts/shipTemplates_Corvette.lua:157
 msgid "Gunner"
-msgstr ""
+msgstr "Ágyús"
 
 #: scripts/shipTemplates_Corvette.lua:217
 msgid "Defense platform"
-msgstr ""
+msgstr "Védelmi állás"
 
 msgid "Support"
-msgstr ""
+msgstr "Támogató"
 
 #: scripts/shipTemplates_Corvette.lua:235
 #, lua-format
 msgid "Personnel Freighter %d"
-msgstr ""
+msgstr "Polgári teherhajó %d"
 
 #: scripts/shipTemplates_Corvette.lua:235
 #: scripts/shipTemplates_Corvette.lua:248
@@ -877,7 +877,7 @@ msgstr ""
 #: scripts/shipTemplates_Corvette.lua:287
 #: scripts/shipTemplates_Corvette.lua:301
 msgid "Freighter"
-msgstr ""
+msgstr "Teher"
 
 #: scripts/shipTemplates_Corvette.lua:244
 #, lua-format
@@ -887,46 +887,46 @@ msgstr ""
 #: scripts/shipTemplates_Corvette.lua:248
 #, lua-format
 msgid "Goods Freighter %d"
-msgstr ""
+msgstr "Kereskedői teherhajó %d"
 
 #: scripts/shipTemplates_Corvette.lua:257
 #, lua-format
 msgid "Goods Jump Freighter %d"
-msgstr ""
+msgstr "Kereskedői Ugró Teherhajó %d"
 
 #: scripts/shipTemplates_Corvette.lua:261
 #, lua-format
 msgid "Garbage Freighter %d"
-msgstr ""
+msgstr "Szemét Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:270
 #, lua-format
 msgid "Garbage Jump Freighter %d"
-msgstr ""
+msgstr "Szemét Ugró Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:274
 #, lua-format
 msgid "Equipment Freighter %d"
-msgstr ""
+msgstr "Felszerelés Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:283
 #, lua-format
 msgid "Equipment Jump Freighter %d"
-msgstr ""
+msgstr "Felszerelés Ugró Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:287
 #, lua-format
 msgid "Fuel Freighter %d"
-msgstr ""
+msgstr "Üzemanyag Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:296
 #, lua-format
 msgid "Fuel Jump Freighter %d"
-msgstr ""
+msgstr "Üzemanyag Ugró Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:301
 msgid "Jump Carrier"
-msgstr ""
+msgstr "Ugró Hordozó"
 
 #: scripts/shipTemplates_Corvette.lua:314
 msgid "Benedict"
@@ -934,15 +934,15 @@ msgstr ""
 
 #: scripts/shipTemplates_Corvette.lua:314
 msgid "Freighter/Carrier"
-msgstr ""
+msgstr "Szállító/Hordozó"
 
 #: scripts/shipTemplates_Corvette.lua:348
 msgid "Kiriya"
-msgstr ""
+msgstr "Kiriya"
 
 #: scripts/factionInfo.lua:1
 msgid "Independent"
-msgstr ""
+msgstr "Független"
 
 #: scripts/factionInfo.lua:3
 msgid ""
@@ -954,7 +954,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:5
 msgid "Human Navy"
-msgstr ""
+msgstr "Emberi Haditengerészet"
 
 #: scripts/factionInfo.lua:7
 msgid ""
@@ -974,7 +974,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:13
 msgid "Kraylor"
-msgstr ""
+msgstr "Kraylor"
 
 #: scripts/factionInfo.lua:16
 msgid ""
@@ -993,7 +993,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:22
 msgid "Arlenians"
-msgstr ""
+msgstr "Arlénián"
 
 #: scripts/factionInfo.lua:25
 msgid ""
@@ -1020,7 +1020,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:33
 msgid "Exuari"
-msgstr ""
+msgstr "Exuári"
 
 #: scripts/factionInfo.lua:39
 msgid ""
@@ -1037,7 +1037,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:43
 msgid "Ghosts"
-msgstr ""
+msgstr "Szellem"
 
 #: scripts/factionInfo.lua:45
 msgid ""
@@ -1070,7 +1070,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:52
 msgid "Ktlitans"
-msgstr ""
+msgstr "Ktlitáni"
 
 #: scripts/factionInfo.lua:54
 msgid ""
@@ -1103,7 +1103,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:65
 msgid "TSN"
-msgstr ""
+msgstr "TSN"
 
 msgid ""
 "The Terran Stellar Navy or TSN consists of naval forces based near Terra. "
@@ -1121,7 +1121,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:78
 msgid "USN"
-msgstr ""
+msgstr "USN"
 
 msgid ""
 "The United Stellar Navy or USN is a naval force near the boundary of Human "
@@ -1135,7 +1135,7 @@ msgstr ""
 
 #: scripts/factionInfo.lua:89
 msgid "CUF"
-msgstr ""
+msgstr "CUF"
 
 msgid ""
 "The Celestial Unified Fleet or CUF is the farthest ranging primarily human "
@@ -1155,81 +1155,81 @@ msgstr ""
 #: src/scienceDatabase.cpp:296
 msgctxt "database direction"
 msgid "Front"
-msgstr ""
+msgstr "Elülső"
 
 #: src/scienceDatabase.cpp:298
 msgctxt "database direction"
 msgid "Right"
-msgstr ""
+msgstr "Jobb"
 
 #: src/scienceDatabase.cpp:300
 msgctxt "database direction"
 msgid "Left"
-msgstr ""
+msgstr "Bal"
 
 #: src/scienceDatabase.cpp:302
 msgctxt "database direction"
 msgid "Rear"
-msgstr ""
+msgstr "Hátsó"
 
 #: src/scienceDatabase.cpp:323
 msgctxt "database"
 msgid "Factions"
-msgstr ""
+msgstr "Frakció"
 
 #: src/scienceDatabase.cpp:331 src/scienceDatabase.cpp:334
 msgctxt "stance"
 msgid "Neutral"
-msgstr ""
+msgstr "Semleges"
 
 #: src/scienceDatabase.cpp:335
 msgctxt "stance"
 msgid "Enemy"
-msgstr ""
+msgstr "Ellenséges"
 
 #: src/scienceDatabase.cpp:336
 msgctxt "stance"
 msgid "Friendly"
-msgstr ""
+msgstr "Baráti"
 
 #: src/scienceDatabase.cpp:344
 msgctxt "database"
 msgid "Ships"
-msgstr ""
+msgstr "Hajók"
 
 #: src/scienceDatabase.cpp:379
 msgctxt "database"
 msgid "Class"
-msgstr ""
+msgstr "Osztály"
 
 #: src/scienceDatabase.cpp:380
 msgctxt "database"
 msgid "Sub-class"
-msgstr ""
+msgstr "Alosztály"
 
 #: src/scienceDatabase.cpp:381
 msgctxt "database"
 msgid "Size"
-msgstr ""
+msgstr "Méret"
 
 #: src/scienceDatabase.cpp:391
 msgctxt "database"
 msgid "Shield"
-msgstr ""
+msgstr "Pajzs"
 
 #: src/scienceDatabase.cpp:393
 msgid "Hull"
-msgstr ""
+msgstr "Hajó test"
 
 #: src/scienceDatabase.cpp:397
 msgctxt "database"
 msgid "Move speed"
-msgstr ""
+msgstr "Sebesség"
 
 #: src/scienceDatabase.cpp:400
 msgctxt "database"
 msgid "Turn speed"
-msgstr ""
+msgstr "Fordulékonyság"
 
 #: src/scienceDatabase.cpp:404
 msgctxt "database"
