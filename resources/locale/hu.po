@@ -882,7 +882,7 @@ msgstr "Teher"
 #: scripts/shipTemplates_Corvette.lua:244
 #, lua-format
 msgid "Personnel Jump Freighter %d"
-msgstr ""
+msgstr "Személy Ugró Szállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:248
 #, lua-format
@@ -1234,53 +1234,53 @@ msgstr "Fordulékonyság"
 #: src/scienceDatabase.cpp:404
 msgctxt "database"
 msgid "Warp speed"
-msgstr ""
+msgstr "Térhajtómű sebesség"
 
 #: src/scienceDatabase.cpp:408
 msgctxt "database"
 msgid "Jump range"
-msgstr ""
+msgstr "Ugrási távolság"
 
 #: src/scienceDatabase.cpp:415
 msgid "{direction} beam weapon"
-msgstr ""
+msgstr "{direction} lézer fegyver"
 
 #: src/scienceDatabase.cpp:416
 msgctxt "database"
 msgid "{damage} Dmg / {interval} sec"
-msgstr ""
+msgstr "{damage} Sebz. / {interval} másodperc"
 
 #: src/scienceDatabase.cpp:425
 msgctxt "database"
 msgid "{direction} tube"
-msgstr ""
+msgstr "{direction} vetőcső"
 
 #: src/scienceDatabase.cpp:428
 msgctxt "database"
-msgid "{direction} small tube"
+msgid "{direction} kis vetőcső"
 msgstr ""
 
 #: src/scienceDatabase.cpp:432
 msgctxt "database"
-msgid "{direction} large tube"
+msgid "{direction} nagy vetőcső"
 msgstr ""
 
 #: src/scienceDatabase.cpp:436
 msgctxt "database"
-msgid "{loadtime} sec"
+msgid "{loadtime} mp"
 msgstr ""
 
 #: src/menus/serverCreationScreen.cpp:69
 msgid "GM control code: "
-msgstr ""
+msgstr "KM jelszava"
 
 #: src/menus/optionsMenu.cpp:38
 msgid "Graphics options"
-msgstr ""
+msgstr "Grafikai beállítások"
 
 #: src/menus/optionsMenu.cpp:38
 msgid "Audio options"
-msgstr ""
+msgstr "Hang beállítások"
 
 #: src/menus/optionsMenu.cpp:38
 msgid "Interface options"
@@ -1288,43 +1288,43 @@ msgstr ""
 
 #: src/menus/optionsMenu.cpp:90
 msgid "Music Playback"
-msgstr ""
+msgstr "Zene"
 
 #: src/menus/optionsMenu.cpp:100 src/menus/optionsMenu.cpp:125
 msgid "Disabled"
-msgstr ""
+msgstr "Letíltva"
 
 #: src/menus/optionsMenu.cpp:100 src/menus/optionsMenu.cpp:125
 msgid "Enabled"
-msgstr ""
+msgstr "Engedélyezve"
 
 #: src/menus/optionsMenu.cpp:100 src/menus/optionsMenu.cpp:125
 msgid "Main Screen only"
-msgstr ""
+msgstr "Csak a főképernyőn"
 
 #: src/menus/optionsMenu.cpp:106 src/menus/optionsMenu.cpp:111
 msgid "Music Volume: {volume}%"
-msgstr ""
+msgstr "Zene hangereje: {volume}%"
 
 #: src/menus/optionsMenu.cpp:115
 msgid "Impulse Engine sound"
-msgstr ""
+msgstr "Impulzus Meghajtó hangja"
 
 #: src/menus/optionsMenu.cpp:131 src/menus/optionsMenu.cpp:136
 msgid "Impulse Volume: {volume}%"
-msgstr ""
+msgstr "Impulzus hangereje: {volume}%"
 
 #: src/menus/optionsMenu.cpp:141
 msgid "Helms Radar Lock"
-msgstr ""
+msgstr "Kormányos Radar Rögzítése"
 
 #: src/menus/optionsMenu.cpp:149
 msgid "Weapons Radar Lock"
-msgstr ""
+msgstr "Fegyverek Radar Rögzítése"
 
 #: src/menus/optionsMenu.cpp:155
 msgid "Science Radar Lock"
-msgstr ""
+msgstr "Tudományos tiszt Radar Rögzítése"
 
 #: src/menus/optionsMenu.cpp:171
 msgid "Preview Soundtracks"
@@ -1333,43 +1333,43 @@ msgstr ""
 #: src/menus/optionsMenu.cpp:187
 msgctxt "options"
 msgid "Back"
-msgstr ""
+msgstr "Vissza"
 
 #: src/menus/optionsMenu.cpp:195
 msgctxt "options"
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: src/screens/crew4/tacticalScreen.cpp:75
 #: src/screens/crew1/singlePilotScreen.cpp:79
 msgid "Shields"
-msgstr ""
+msgstr "Pajzsok"
 
 #: src/screens/crew4/tacticalScreen.cpp:88
 msgid "Beams"
-msgstr ""
+msgstr "Lézerek"
 
 msgid "Mission Clock"
-msgstr ""
+msgstr "Küldetés Óra"
 
 #: src/spaceObjects/playerSpaceship.cpp:280
 msgctxt "alert"
 msgid "RED ALERT"
-msgstr ""
+msgstr "VÖRÖS RIADÓ"
 
 #: src/spaceObjects/playerSpaceship.cpp:281
 msgctxt "alert"
 msgid "YELLOW ALERT"
-msgstr ""
+msgstr "SÁRGA RIADÓ"
 
 #: src/spaceObjects/playerSpaceship.cpp:282
 msgctxt "alert"
 msgid "Normal"
-msgstr ""
+msgstr "Normális"
 
 #: scripts/shipTemplates_Stations.lua:5
 msgid "Small Station"
-msgstr ""
+msgstr "Kis Állomás"
 
 #: scripts/shipTemplates_Stations.lua:6
 msgid ""
@@ -1383,7 +1383,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Stations.lua:11
 msgid "Medium Station"
-msgstr ""
+msgstr "Közepes Állomás"
 
 #: scripts/shipTemplates_Stations.lua:12
 msgid ""
@@ -1395,7 +1395,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Stations.lua:17
 msgid "Large Station"
-msgstr ""
+msgstr "Nagy Állomás"
 
 #: scripts/shipTemplates_Stations.lua:18
 msgid ""
@@ -1408,7 +1408,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Stations.lua:23
 msgid "Huge Station"
-msgstr ""
+msgstr "Óriás Állomás"
 
 #: scripts/shipTemplates_Stations.lua:24
 msgid ""
@@ -1423,85 +1423,85 @@ msgstr ""
 #: src/playerInfo.cpp:222
 msgctxt "station"
 msgid "Helms"
-msgstr ""
+msgstr "Kormányos"
 
 #: src/playerInfo.cpp:223
 msgctxt "station"
 msgid "Weapons"
-msgstr ""
+msgstr "Fegyverzet"
 
 #: src/playerInfo.cpp:224
 msgctxt "station"
 msgid "Engineering"
-msgstr ""
+msgstr "Gépház"
 
 #: src/playerInfo.cpp:225
 msgctxt "station"
 msgid "Science"
-msgstr ""
+msgstr "Tudományos tiszt"
 
 #: src/playerInfo.cpp:226
 msgctxt "station"
 msgid "Relay"
-msgstr ""
+msgstr "Rádiós"
 
 #: src/playerInfo.cpp:227
 msgctxt "station"
 msgid "Tactical"
-msgstr ""
+msgstr "Taktikai tiszt"
 
 #: src/playerInfo.cpp:228
 msgctxt "station"
 msgid "Engineering+"
-msgstr ""
+msgstr "Gépház"
 
 #: src/playerInfo.cpp:229
 msgctxt "station"
 msgid "Operations"
-msgstr ""
+msgstr "Műveleti tiszt"
 
 #: src/playerInfo.cpp:230
 msgctxt "station"
 msgid "Single Pilot"
-msgstr ""
+msgstr "Magányos pilóta"
 
 #: src/playerInfo.cpp:231
 msgctxt "station"
 msgid "Damage Control"
-msgstr ""
+msgstr "Javító gárda"
 
 #: src/playerInfo.cpp:232
 msgctxt "station"
 msgid "Power Management"
-msgstr ""
+msgstr "Energia ellátás"
 
 #: src/playerInfo.cpp:233
 msgctxt "station"
 msgid "Database"
-msgstr ""
+msgstr "Adatbázis"
 
 #: src/playerInfo.cpp:234
 msgctxt "station"
 msgid "Strategic Map"
-msgstr ""
+msgstr "Stratégiai térkép"
 
 #: src/playerInfo.cpp:235
 msgctxt "station"
 msgid "Comms"
-msgstr ""
+msgstr "Kommunikációs tiszt"
 
 #: src/playerInfo.cpp:236
 msgctxt "station"
 msgid "Ship's Log"
-msgstr ""
+msgstr "Hajó napló"
 
 #: src/shipTemplate.cpp:123
 msgid "No class"
-msgstr ""
+msgstr "Nics osztály"
 
 #: src/shipTemplate.cpp:124
 msgid "No sub-class"
-msgstr ""
+msgstr "Nics alosztály"
 
 #: src/screens/crew4/operationsScreen.cpp:84
 #: src/screens/crew6/relayScreen.cpp:147
@@ -1512,37 +1512,37 @@ msgstr ""
 #: src/screens/crew6/relayScreen.cpp:151
 #: src/screens/gm/gameMasterScreen.cpp:140
 msgid "Clock"
-msgstr ""
+msgstr "Óra"
 
 #: src/screens/gm/gameMasterScreen.cpp:38
 msgctxt "button"
 msgid "Pause"
-msgstr ""
+msgstr "Szünet"
 
 #: src/screens/gm/gameMasterScreen.cpp:46
 msgctxt "button"
 msgid "Intercept all comms"
-msgstr ""
+msgstr "Összes kommunikáció elfogása"
 
 #: src/screens/gm/gameMasterScreen.cpp:61
 msgctxt "button"
 msgid "Global message"
-msgstr ""
+msgstr "Üzenet mindenkinek"
 
 #: src/screens/gm/gameMasterScreen.cpp:75
 msgctxt "button"
 msgid "Create..."
-msgstr ""
+msgstr "Létrehozás..."
 
 #: src/screens/gm/gameMasterScreen.cpp:80
 msgctxt "button"
 msgid "Copy scenario"
-msgstr ""
+msgstr "Esemény másolása"
 
 #: src/screens/gm/gameMasterScreen.cpp:85
 msgctxt "button"
 msgid "Copy selected"
-msgstr ""
+msgstr "Kijelöltek másolása"
 
 #: src/menus/joinServerMenu.cpp:20 src/screens/gm/gameMasterScreen.cpp:90
 #: src/screens/gm/objectCreationView.cpp:119
@@ -1551,191 +1551,191 @@ msgstr ""
 #: src/screenComponents/scanningDialog.cpp:35
 msgctxt "button"
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #: src/screens/gm/gameMasterScreen.cpp:95
 msgctxt "button"
 msgid "Tweak"
-msgstr ""
+msgstr "Részletek"
 
 #: src/screens/gm/gameMasterScreen.cpp:125
 msgctxt "button"
 msgid "Hail ship"
-msgstr ""
+msgstr "Hajó üdvözlése"
 
 #: src/screens/gm/gameMasterScreen.cpp:162
 msgid "Defend location"
-msgstr ""
+msgstr "Pozíció őrzése"
 
 #: src/screens/gm/gameMasterScreen.cpp:167
 msgid "Stand ground"
-msgstr ""
+msgstr "Pozíció tartása"
 
 #: src/screens/gm/gameMasterScreen.cpp:172
 msgid "Roaming"
-msgstr ""
+msgstr "Vándorlás"
 
 #: src/screens/gm/gameMasterScreen.cpp:177
 msgid "Idle"
-msgstr ""
+msgstr "Várakozás"
 
 #: src/screens/gm/gameMasterScreen.cpp:182
 msgid "Orders:"
-msgstr ""
+msgstr "Utasítások"
 
 #: src/screens/gm/gameMasterScreen.cpp:213 src/screens/gm/tweak.cpp:80
 #: src/screenComponents/commsOverlay.cpp:110
 #: src/screenComponents/commsOverlay.cpp:140
 msgctxt "button"
 msgid "Close"
-msgstr ""
+msgstr "Bezárás"
 
 #: src/screens/gm/gameMasterScreen.cpp:307
 msgid "*mixed*"
-msgstr ""
+msgstr "*vegyes*"
 
 #: src/screens/gm/tweak.cpp:32
 msgctxt "tab"
 msgid "Base"
-msgstr ""
+msgstr "Bázis"
 
 #: src/screens/gm/tweak.cpp:37
 msgctxt "tab"
 msgid "Ship"
-msgstr ""
+msgstr "Hajó"
 
 #: src/screens/gm/tweak.cpp:43
 msgctxt "tab"
 msgid "Jammer"
-msgstr ""
+msgstr "Jelzavaró"
 
 #: src/screens/gm/tweak.cpp:49
 msgctxt "tab"
 msgid "Shields"
-msgstr ""
+msgstr "Pajzsok"
 
 #: src/screens/gm/tweak.cpp:55
 msgctxt "tab"
 msgid "Tubes"
-msgstr ""
+msgstr "vetőcsövek"
 
 #: src/screens/gm/tweak.cpp:57
 msgctxt "tab"
 msgid "Missiles"
-msgstr ""
+msgstr "Rakéták"
 
 #: src/screens/gm/tweak.cpp:59
 msgctxt "tab"
 msgid "Beams"
-msgstr ""
+msgstr "Lézerek"
 
 #: src/screens/gm/tweak.cpp:61
 msgctxt "tab"
 msgid "Systems"
-msgstr ""
+msgstr "Rendszerek"
 
 #: src/screens/gm/tweak.cpp:67
 msgctxt "tab"
 msgid "Player"
-msgstr ""
+msgstr "1. Játékos"
 
 #: src/screens/gm/tweak.cpp:69
 msgctxt "tab"
 msgid "Player 2"
-msgstr ""
+msgstr "2. Játékos"
 
 #: src/screens/gm/tweak.cpp:113
 msgid "Impulse speed:"
-msgstr ""
+msgstr "Impulzus sebesség:"
 
 #: src/screens/gm/tweak.cpp:119
 msgid "Turn speed:"
-msgstr ""
+msgstr "Fordulékonyság:"
 
 #: src/screens/gm/tweak.cpp:137
 msgid "Jump charge:"
-msgstr ""
+msgstr "Ugráshoz felkészülés:"
 
 #: src/screens/gm/tweak.cpp:145
 msgid "Type name:"
-msgstr ""
+msgstr "Típus megnevezése:"
 
 #: src/screens/gm/tweak.cpp:154
 msgid "Hull max:"
-msgstr ""
+msgstr "Maximális hajó test:"
 
 #: src/screens/gm/tweak.cpp:161
 msgid "Hull current:"
-msgstr ""
+msgstr "Jelenlegi hajó test:"
 
 #: src/screens/gm/tweak.cpp:168
 msgid "Could be destroyed"
-msgstr ""
+msgstr "Elpusztítható"
 
 #: src/screens/gm/tweak.cpp:175
 msgid "Warp Drive"
-msgstr ""
+msgstr "Térhajlító Hajtómű"
 
 #: src/screens/gm/tweak.cpp:180
 msgid "Jump Drive"
-msgstr ""
+msgstr "Ugró Hajtómű"
 
 #: src/screens/gm/tweak.cpp:221
 msgctxt "missiles"
 msgid "Storage space:"
-msgstr ""
+msgstr "Tárolási kapacitás:"
 
 #: src/screens/gm/tweak.cpp:234
 msgctxt "missiles"
 msgid "Stored amount:"
-msgstr ""
+msgstr "Raktáron:"
 
 #: src/screens/gm/tweak.cpp:255
 msgid "Jammer Range:"
-msgstr ""
+msgstr "Jelzavaró hatótávja:"
 
 #: src/screens/gm/tweak.cpp:301
 msgid "Tube count:"
-msgstr ""
+msgstr "Vetőcsövek száma:"
 
 #: src/screens/gm/tweak.cpp:325
 msgid "Tube: {id_tube}"
-msgstr ""
+msgstr "{id_tube}. vetőcső"
 
 #: src/screens/gm/tweak.cpp:328
 msgctxt "tube"
 msgid "Direction:"
-msgstr ""
+msgstr "Irányzék"
 
 #: src/screens/gm/tweak.cpp:334
 msgctxt "tube"
 msgid "Load time:"
-msgstr ""
+msgstr "Betöltési idő:"
 
 #: src/screens/gm/tweak.cpp:340
 msgctxt "tube"
 msgid "Size:"
-msgstr ""
+msgstr "Méret:"
 
 #: src/screens/gm/tweak.cpp:345
 msgctxt "tube"
 msgid "Small"
-msgstr ""
+msgstr "Kicsi"
 
 #: src/screens/gm/tweak.cpp:346
 msgctxt "tube"
 msgid "Medium"
-msgstr ""
+msgstr "Közepes"
 
 #: src/screens/gm/tweak.cpp:347
 msgctxt "tube"
 msgid "large"
-msgstr ""
+msgstr "Nagy"
 
 #: src/screens/gm/tweak.cpp:351
 msgctxt "tube"
 msgid "Allowed use:"
-msgstr ""
+msgstr "Felhasználható: "
 
 #: src/screens/gm/tweak.cpp:394
 msgid "Shield {id_shield} max:"
@@ -1743,121 +1743,121 @@ msgstr ""
 
 #: src/screens/gm/tweak.cpp:404
 msgid "Shield {id_shield}:"
-msgstr ""
+msgstr "{id_shield}. pajzs:"
 
 #: src/screens/gm/tweak.cpp:448
 msgid "Beam: {id_beam}"
-msgstr ""
+msgstr "{id_beam}. lézer:"
 
 #: src/screens/gm/tweak.cpp:451
 msgctxt "beam"
 msgid "Arc:"
-msgstr ""
+msgstr "Látószög:"
 
 #: src/screens/gm/tweak.cpp:457
 msgctxt "beam"
 msgid "Direction:"
-msgstr ""
+msgstr "Irányzék:"
 
 #: src/screens/gm/tweak.cpp:463
 msgctxt "beam"
 msgid "Turret arc:"
-msgstr ""
+msgstr "Gépfegyver látószög:"
 
 #: src/screens/gm/tweak.cpp:469
 msgctxt "beam"
 msgid "Turret direction:"
-msgstr ""
+msgstr "Gépfegyver irányzék:"
 
 #: src/screens/gm/tweak.cpp:475
 msgctxt "beam"
 msgid "Turret rotation rate:"
-msgstr ""
+msgstr "Gépfegyver fordulékonyság:"
 
 #: src/screens/gm/tweak.cpp:490
 msgctxt "beam"
 msgid "Range:"
-msgstr ""
+msgstr "Hatótáv:"
 
 #: src/screens/gm/tweak.cpp:496
 msgctxt "beam"
 msgid "Cycle time:"
-msgstr ""
+msgstr "Ciklus idő:"
 
 #: src/screens/gm/tweak.cpp:502
 msgctxt "beam"
 msgid "Damage:"
-msgstr ""
+msgstr "Sebzés:"
 
 #: src/screens/gm/tweak.cpp:552
 msgid "{system} health max"
-msgstr ""
+msgstr "{system} maximális épsége"
 
 #: src/screens/gm/tweak.cpp:604
 msgid "Control code:"
-msgstr ""
+msgstr "Irányító kód:"
 
 #: src/screens/gm/tweak.cpp:621
 msgid "Max energy:"
-msgstr ""
+msgstr "Maximális energia:"
 
 #: src/screens/gm/tweak.cpp:629
 msgid "Current energy:"
-msgstr ""
+msgstr "Aktuális energia:"
 
 #: src/screens/gm/tweak.cpp:637
 msgid "Boost Speed:"
-msgstr ""
+msgstr "Turbó Sebesség:"
 
 #: src/screens/gm/tweak.cpp:643
 msgid "Strafe Speed:"
-msgstr ""
+msgstr "Oldalazási Sebesség:"
 
 #: src/screens/gm/tweak.cpp:651 src/screens/gm/tweak.cpp:684
 msgid "Positions occupied: "
-msgstr ""
+msgstr "Pozíció foglalt:"
 
 #: src/screens/gm/tweak.cpp:676
 msgctxt "position"
 msgid "Occupied"
-msgstr ""
+msgstr "Foglalt"
 
 #: src/screens/gm/tweak.cpp:725
 msgid "Coolant:"
-msgstr ""
+msgstr "Hűtő folyadék"
 
 #: src/screens/gm/tweak.cpp:732
 msgid "Short range radar:"
-msgstr ""
+msgstr "Rövid hatótávu radar:"
 
 #: src/screens/gm/tweak.cpp:738
 msgid "Long range radar:"
-msgstr ""
+msgstr "Hosszú hatótávu radar:"
 
 #: src/screens/gm/tweak.cpp:758
 msgctxt "button"
 msgid "Can scan"
-msgstr ""
+msgstr "Szkennelhető"
 
 #: src/screens/gm/tweak.cpp:764
 msgctxt "button"
 msgid "Can hack"
-msgstr ""
+msgstr "Hekkelhető"
 
 #: src/screens/gm/tweak.cpp:770
 msgctxt "button"
 msgid "Can dock"
-msgstr ""
+msgstr "Dokkolható"
 
 #: src/screens/gm/tweak.cpp:776
 msgctxt "button"
 msgid "Can combat maneuver"
-msgstr ""
+msgstr "Képes harci manőverre"
 
 #: src/screens/gm/tweak.cpp:782
 msgctxt "button"
 msgid "Can self destruct"
-msgstr ""
+msgstr "Van önmegsemmisítés"
 
 #: src/screens/gm/tweak.cpp:788
 msgctxt "button"
@@ -1867,64 +1867,64 @@ msgstr ""
 #: src/screens/gm/tweak.cpp:793
 msgctxt "button"
 msgid "Auto coolant"
-msgstr ""
+msgstr "Automatikus hűtés"
 
 #: src/screens/gm/tweak.cpp:798
 msgctxt "button"
 msgid "Auto repair"
-msgstr ""
+msgstr "Automatikus javítás"
 
 #: src/screens/gm/tweak.cpp:837
 msgid "Callsign:"
-msgstr ""
+msgstr "Hívójel:"
 
 #: src/screens/gm/tweak.cpp:848
 msgid "Unscanned description:"
-msgstr ""
+msgstr "Nem szkennelt leírás:"
 
 #: src/screens/gm/tweak.cpp:855
 msgid "Friend or Foe Description:"
-msgstr ""
+msgstr "Baráti vagy Ellenséges leírás:"
 
 #: src/screens/gm/tweak.cpp:862
 msgid "Simple Scan Description:"
-msgstr ""
+msgstr "Egyszeri szkennelési leírás:"
 
 #: src/screens/gm/tweak.cpp:869
 msgid "Full Scan Description:"
-msgstr ""
+msgstr "Teljes szkennelési leírás:"
 
 #: src/screens/gm/tweak.cpp:879
 msgid "Heading:"
-msgstr ""
+msgstr "Irányzék:"
 
 #: src/screens/gm/tweak.cpp:885
 msgid "Scanning Complexity:"
-msgstr ""
+msgstr "Szkennelés nehézsége:"
 
 #: src/screens/gm/tweak.cpp:891
 msgid "Scanning Depth:"
-msgstr ""
+msgstr "Szkennelés mélysége:"
 
 #: scripts/shipTemplates_Corvette.lua:217
 msgctxt "subclass"
 msgid "Support"
-msgstr ""
+msgstr "Támogatás"
 
 #: scripts/shipTemplates_Dreadnaught.lua:9
 msgid "Odin"
-msgstr ""
+msgstr "Odin"
 
 #: scripts/shipTemplates_Dreadnaught.lua:9 scripts/shipTemplates_OLD.lua:348
 #: scripts/shipTemplates_OLD.lua:363
 msgctxt "class"
 msgid "Dreadnought"
-msgstr ""
+msgstr "Csatahajó"
 
 #: scripts/shipTemplates_Dreadnaught.lua:9
 msgctxt "subclass"
 msgid "Odin"
-msgstr ""
+msgstr "Odin"
 
 #: scripts/shipTemplates_Dreadnaught.lua:11
 msgid ""
@@ -1950,7 +1950,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:14
 msgid "Phobos T3"
-msgstr ""
+msgstr "Phobosz T3"
 
 #: scripts/shipTemplates_Frigates.lua:14 scripts/shipTemplates_Frigates.lua:87
 #: scripts/shipTemplates_Frigates.lua:116
@@ -1964,11 +1964,11 @@ msgstr ""
 #: scripts/shipTemplates_OLD.lua:260 scripts/shipTemplates_OLD.lua:271
 #: scripts/shipTemplates_OLD.lua:470
 msgid "Frigate"
-msgstr ""
+msgstr "Fregatt"
 
 #: scripts/shipTemplates_Frigates.lua:14 scripts/shipTemplates_OLD.lua:235
 msgid "Cruiser"
-msgstr ""
+msgstr "Szállító"
 
 #: scripts/shipTemplates_Frigates.lua:16
 msgid ""
@@ -1980,7 +1980,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:28
 msgid "Elara P2"
-msgstr ""
+msgstr "Elara P2"
 
 #: scripts/shipTemplates_Frigates.lua:29
 msgid ""
@@ -1991,7 +1991,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:33
 msgid "Phobos M3"
-msgstr ""
+msgstr "Phobosz M3"
 
 #: scripts/shipTemplates_Frigates.lua:34
 msgid ""
@@ -2002,7 +2002,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:41
 msgid "Phobos M3P"
-msgstr ""
+msgstr "Phobosz M3P"
 
 #: scripts/shipTemplates_Frigates.lua:42
 msgid ""
@@ -2012,11 +2012,11 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:87
 msgid "Nirvana R5"
-msgstr ""
+msgstr "Nirvána R5"
 
 #: scripts/shipTemplates_Frigates.lua:87
 msgid "Cruiser: Anti-fighter"
-msgstr ""
+msgstr "Cirkáló: vadász elhárító"
 
 #: scripts/shipTemplates_Frigates.lua:89
 msgid ""
@@ -2026,7 +2026,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:98
 msgid "Nirvana R5A"
-msgstr ""
+msgstr "Nirvána R5A"
 
 #: scripts/shipTemplates_Frigates.lua:99
 msgid ""
@@ -2036,7 +2036,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:106
 msgid "Nirvana R3"
-msgstr ""
+msgstr "Nirvána R3"
 
 #: scripts/shipTemplates_Frigates.lua:107
 msgid ""
@@ -2048,11 +2048,11 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:116
 msgid "Storm"
-msgstr ""
+msgstr "Vihar"
 
 #: scripts/shipTemplates_Frigates.lua:116
 msgid "Cruiser: Heavy Artillery"
-msgstr ""
+msgstr "Cirkáló: Nehéz Tüzérségü"
 
 #: scripts/shipTemplates_Frigates.lua:118
 msgid ""
@@ -2067,7 +2067,7 @@ msgstr ""
 #: scripts/shipTemplates_Frigates.lua:133
 #: scripts/shipTemplates_Frigates.lua:299
 msgid "Cruiser: Sniper"
-msgstr ""
+msgstr "Cirkáló: Mesterlövész"
 
 #: scripts/shipTemplates_Frigates.lua:135
 msgid ""
@@ -2077,11 +2077,11 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:179
 msgid "Piranha F12"
-msgstr ""
+msgstr "Piranha F12"
 
 #: scripts/shipTemplates_Frigates.lua:179
 msgid "Cruiser: Light Artillery"
-msgstr ""
+msgstr "Könnyű Tüzérségi"
 
 #: scripts/shipTemplates_Frigates.lua:181
 msgid ""
@@ -2091,7 +2091,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:201
 msgid "Piranha F12.M"
-msgstr ""
+msgstr "Piranha F12.M"
 
 #: scripts/shipTemplates_Frigates.lua:202
 msgid ""
@@ -2103,7 +2103,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:207
 msgid "Piranha F8"
-msgstr ""
+msgstr "Piranha F8"
 
 #: scripts/shipTemplates_Frigates.lua:208
 msgid ""
@@ -2113,7 +2113,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:216
 msgid "Piranha"
-msgstr ""
+msgstr "Piranha"
 
 #: scripts/shipTemplates_Frigates.lua:217
 msgid ""
@@ -2123,11 +2123,11 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:272
 msgid "Stalker Q7"
-msgstr ""
+msgstr "Árny Q7"
 
 #: scripts/shipTemplates_Frigates.lua:272
 msgid "Cruiser: Strike ship"
-msgstr ""
+msgstr "Cirkáló: Csapásmérő"
 
 #: scripts/shipTemplates_Frigates.lua:274
 msgid ""
@@ -2137,7 +2137,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:282
 msgid "Stalker Q5"
-msgstr ""
+msgstr "Árny Q5"
 
 #: scripts/shipTemplates_Frigates.lua:283
 msgid ""
@@ -2148,7 +2148,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:288
 msgid "Stalker R7"
-msgstr ""
+msgstr "Árny R7"
 
 #: scripts/shipTemplates_Frigates.lua:289
 msgid ""
@@ -2158,7 +2158,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:293
 msgid "Stalker R5"
-msgstr ""
+msgstr "Árny R5"
 
 #: scripts/shipTemplates_Frigates.lua:294
 msgid ""
@@ -2169,7 +2169,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:299
 msgid "Ranus U"
-msgstr ""
+msgstr "Ranusz U"
 
 #: scripts/shipTemplates_Frigates.lua:301
 msgid ""
@@ -2181,11 +2181,11 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:312
 msgid "Flavia"
-msgstr ""
+msgstr "Flávia"
 
 #: scripts/shipTemplates_Frigates.lua:312
 msgid "Light transport"
-msgstr ""
+msgstr "Könnyű szállító"
 
 #: scripts/shipTemplates_Frigates.lua:314
 msgid ""
@@ -2196,7 +2196,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:319
 msgid "Flavia Falcon"
-msgstr ""
+msgstr "Flávia Sólyom"
 
 #: scripts/shipTemplates_Frigates.lua:320
 msgid ""
@@ -2206,7 +2206,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:325
 msgid "Flavia P.Falcon"
-msgstr ""
+msgstr "Flávia Vándorsólyom"
 
 #: scripts/shipTemplates_Frigates.lua:326
 msgid ""
@@ -2216,20 +2216,20 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:369
 msgid "Repulse"
-msgstr ""
+msgstr "Válaszcsapás"
 
 #: scripts/shipTemplates_Frigates.lua:369
 msgid "Armored Transport"
-msgstr ""
+msgstr "Páncélozott Szállító"
 
 #: scripts/shipTemplates_Frigates.lua:414
 msgid "Fiend G3"
-msgstr ""
+msgstr "Ördög G3"
 
 #: scripts/shipTemplates_Frigates.lua:414 scripts/shipTemplates_OLD.lua:271
 #: scripts/shipTemplates_StarFighters.lua:65
 msgid "Gunship"
-msgstr ""
+msgstr "Hadihajó"
 
 #: scripts/shipTemplates_Frigates.lua:416
 msgid ""
@@ -2242,7 +2242,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:428
 msgid "Fiend G4"
-msgstr ""
+msgstr "Ördög G4"
 
 #: scripts/shipTemplates_Frigates.lua:429
 msgid ""
@@ -2255,7 +2255,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:433
 msgid "Fiend G6"
-msgstr ""
+msgstr "Ördög G6"
 
 #: scripts/shipTemplates_Frigates.lua:434
 msgid ""
@@ -2268,7 +2268,7 @@ msgstr ""
 
 #: scripts/shipTemplates_Frigates.lua:437
 msgid "Fiend G5"
-msgstr ""
+msgstr "Ördög G5"
 
 #: scripts/shipTemplates_Frigates.lua:438
 msgid ""
@@ -2281,7 +2281,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:6
 msgid "Player Cruiser"
-msgstr ""
+msgstr "Játékos Cirkáló"
 
 #: scripts/shipTemplates_OLD.lua:62
 msgid "Player Missile Cr."
@@ -2289,7 +2289,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:116
 msgid "Player Fighter"
-msgstr ""
+msgstr "Játékos vadászgép"
 
 #: scripts/shipTemplates_OLD.lua:156
 msgid "Tug"
@@ -2304,7 +2304,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:173
 msgid "Nautilus"
-msgstr ""
+msgstr "Nautílusz"
 
 #: scripts/shipTemplates_OLD.lua:174
 msgid "Small mine laying vessel with minimal armament, shields and hull"
@@ -2312,7 +2312,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:220
 msgid "Fighter"
-msgstr ""
+msgstr "Vadász"
 
 #: scripts/shipTemplates_OLD.lua:222
 msgid ""
@@ -2351,11 +2351,11 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:260
 msgid "Missile Cruiser"
-msgstr ""
+msgstr "Torpedó Cirkáló"
 
 #: scripts/shipTemplates_OLD.lua:260
 msgid "Cruiser: Missile"
-msgstr ""
+msgstr "Cirkáló: Torpedó vető"
 
 msgid ""
 "Polaris missle cruiser mark I. Fabricated by: Repulse shipyards. This "
@@ -2366,7 +2366,7 @@ msgstr ""
 #: scripts/shipTemplates_OLD.lua:271
 msgctxt "subclass"
 msgid "Gunship"
-msgstr ""
+msgstr "Csatahajó"
 
 msgid ""
 "The gunship is a ship equiped with a homing missile tube to do initial "
@@ -2376,7 +2376,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:284
 msgid "Adv. Gunship"
-msgstr ""
+msgstr "Fejlesztett csatahajó"
 
 msgid ""
 "The advanced gunship is a ship equiped with 2 homing missiles to do initial "
@@ -2386,7 +2386,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:289
 msgid "Strikeship"
-msgstr ""
+msgstr "Hadihajó"
 
 #: scripts/shipTemplates_OLD.lua:289 scripts/shipTemplates_OLD.lua:301
 #: scripts/shipTemplates_StarFighters.lua:13
@@ -2398,16 +2398,16 @@ msgstr ""
 #: scripts/shipTemplates_OLD.lua:289
 msgctxt "subclass"
 msgid "Strike"
-msgstr ""
+msgstr "Csapásmérő"
 
 #: scripts/shipTemplates_OLD.lua:301
 msgid "Adv. Striker"
-msgstr ""
+msgstr "Fejlesztett csapásmérő"
 
 #: scripts/shipTemplates_OLD.lua:301
 msgctxt "subclass"
 msgid "Patrol"
-msgstr ""
+msgstr "Járőrhajó"
 
 #: scripts/shipTemplates_OLD.lua:303
 msgid ""
@@ -2419,7 +2419,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:312
 msgid "Striker"
-msgstr ""
+msgstr "Csapásmérő"
 
 #: scripts/shipTemplates_OLD.lua:313
 msgid ""
@@ -2430,12 +2430,12 @@ msgstr ""
 #: scripts/shipTemplates_OLD.lua:348
 msgctxt "ship"
 msgid "Dreadnought"
-msgstr ""
+msgstr "Csatahajó"
 
 #: scripts/shipTemplates_OLD.lua:348
 msgctxt "subclass"
 msgid "Assault"
-msgstr ""
+msgstr "Támadó"
 
 #: scripts/shipTemplates_OLD.lua:350
 msgid ""
@@ -2445,11 +2445,11 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:363
 msgid "Battlestation"
-msgstr ""
+msgstr "Hadi állomás"
 
 #: scripts/shipTemplates_OLD.lua:363
 msgid "Battlecruiser"
-msgstr ""
+msgstr "Harci cirkáló"
 
 #: scripts/shipTemplates_OLD.lua:365
 msgid ""
@@ -2459,7 +2459,7 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:455
 msgid "Weapons platform"
-msgstr ""
+msgstr "Fegyver állás"
 
 #: scripts/shipTemplates_OLD.lua:457
 msgid ""
@@ -2469,11 +2469,11 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:470
 msgid "Blockade Runner"
-msgstr ""
+msgstr "Blokád törő"
 
 #: scripts/shipTemplates_OLD.lua:470
 msgid "High Punch"
-msgstr ""
+msgstr "Erős csapás"
 
 #: scripts/shipTemplates_OLD.lua:472
 msgid ""
@@ -2483,48 +2483,48 @@ msgstr ""
 
 #: scripts/shipTemplates_OLD.lua:483
 msgid "Ktlitan Fighter"
-msgstr ""
+msgstr "Ktlitán Vadász"
 
 #: scripts/shipTemplates_OLD.lua:490
 msgid "Ktlitan Breaker"
-msgstr ""
+msgstr "Ktlitán Zúzó"
 
 #: scripts/shipTemplates_OLD.lua:500
 msgid "Ktlitan Worker"
-msgstr ""
+msgstr "Ktlitán Munkás"
 
 #: scripts/shipTemplates_OLD.lua:507
 msgid "Ktlitan Drone"
-msgstr ""
+msgstr "Ktlitán Drón"
 
 #: scripts/shipTemplates_OLD.lua:513
 msgid "Ktlitan Feeder"
-msgstr ""
+msgstr "Ktlitán Ellátó"
 
 #: scripts/shipTemplates_OLD.lua:523
 msgid "Ktlitan Scout"
-msgstr ""
+msgstr "Ktlitán Felderítő"
 
 #: scripts/shipTemplates_OLD.lua:529
 msgid "Ktlitan Destroyer"
-msgstr ""
+msgstr "Ktlitán Pusztító"
 
 #: scripts/shipTemplates_OLD.lua:540
 msgid "Ktlitan Queen"
-msgstr ""
+msgstr "Ktlitán Királynő"
 
 #: scripts/shipTemplates_OLD.lua:551
 #, lua-format
 msgid "Transport %dx%d"
-msgstr ""
+msgstr "Szállító %dx%d"
 
 #: scripts/shipTemplates_StarFighters.lua:13
 msgid "MT52 Hornet"
-msgstr ""
+msgstr "MT52 Darázs"
 
 #: scripts/shipTemplates_StarFighters.lua:13
 msgid "Interceptor"
-msgstr ""
+msgstr "Elfogó"
 
 #: scripts/shipTemplates_StarFighters.lua:15
 msgid ""
@@ -2535,7 +2535,7 @@ msgstr ""
 
 #: scripts/shipTemplates_StarFighters.lua:23
 msgid "MU52 Hornet"
-msgstr ""
+msgstr "MU52 Darázs"
 
 #: scripts/shipTemplates_StarFighters.lua:25
 msgid ""
@@ -2545,7 +2545,7 @@ msgstr ""
 
 #: scripts/shipTemplates_StarFighters.lua:31
 msgid "MP52 Hornet"
-msgstr ""
+msgstr "MP52 Darázs"
 
 #: scripts/shipTemplates_StarFighters.lua:32
 msgid ""
