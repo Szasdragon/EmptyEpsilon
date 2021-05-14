@@ -1,4 +1,8 @@
 #include "shipSelectionScreen.h"
+
+#include "featureDefs.h"
+#include "glObjects.h"
+
 #include "serverCreationScreen.h"
 #include "epsilonServer.h"
 #include "main.h"
@@ -423,6 +427,18 @@ void ShipSelectionScreen::update(float delta)
         my_player_info->commandSetName(PreferencesManager::get("username"));
 }
 
+bool ShipSelectionScreen::canDoMainScreen() const
+{
+    if constexpr (FEATURE_3D_RENDERING)
+    {
+        return PostProcessor::isEnabled() && sf::Shader::isAvailable() && gl::isAvailable();
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void ShipSelectionScreen::updateReadyButton()
 {
     // Update the Ready button based on crew position button states.
@@ -554,7 +570,15 @@ void ShipSelectionScreen::onReadyClick()
     {
         my_player_info->commandSetShipId(-1);
         destroy();
-        new CinematicViewScreen();
+        
+        auto selectedShip = player_ship_list->getSelectionValue();
+        
+        if (selectedShip.empty())
+        {
+            selectedShip = "0";
+        }
+        
+        new CinematicViewScreen(selectedShip.toInt());
     }else if(spectator_button->getValue())
     {
         my_player_info->commandSetShipId(-1);

@@ -317,6 +317,26 @@ static int getPlayerShip(lua_State* L)
 /// Return the player's ship, use -1 to get the first active player ship.
 REGISTER_SCRIPT_FUNCTION(getPlayerShip);
 
+static int getActivePlayerShips(lua_State* L)
+{
+    PVector<PlayerSpaceship> ships;
+    ships.reserve(GameGlobalInfo::max_player_ships);
+    for (auto index = 0; index < GameGlobalInfo::max_player_ships; ++index)
+    {
+        auto ship = gameGlobalInfo->getPlayerShip(index);
+        
+        if (ship)
+        {
+            ships.emplace_back(std::move(ship));
+        }
+    }
+
+    return convert<PVector<PlayerSpaceship>>::returnType(L, ships);
+}
+/// getActivePlayerShips()
+/// Return a list of active player ships.
+REGISTER_SCRIPT_FUNCTION(getActivePlayerShips);
+
 static int getObjectsInRadius(lua_State* L)
 {
     float x = luaL_checknumber(L, 1);
@@ -356,6 +376,15 @@ static int getScenarioVariation(lua_State* L)
 /// getScenarioVariation()
 /// Returns the currently used scenario variation.
 REGISTER_SCRIPT_FUNCTION(getScenarioVariation);
+
+static int getGameLanguage(lua_State* L)
+{
+    lua_pushstring(L, PreferencesManager::get("language", "en").c_str());
+    return 1;
+}
+/// getGameLanguage()
+/// Returns the language as the string set in game preferences under language key
+REGISTER_SCRIPT_FUNCTION(getGameLanguage);
 
 /** Short lived object to do a scenario change on the update loop. See "setScenario" for details */
 class ScenarioChanger : public Updatable
