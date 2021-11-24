@@ -142,7 +142,7 @@ msgstr ""
 
 #: src/scienceDatabase.cpp:443
 msgid "Storage {weapon}"
-msgstr ""
+msgstr "Muníció"
 
 #: src/shipTemplate.cpp:378
 msgctxt "system"
@@ -324,7 +324,7 @@ msgstr "Nehéz"
 #: src/menus/serverCreationScreen.cpp:130
 msgctxt "hacking"
 msgid "Fiendish"
-msgstr "Szöernyűséges"
+msgstr "Szörnyűséges"
 
 #: src/menus/serverCreationScreen.cpp:135
 msgid "Hacking type: "
@@ -497,7 +497,7 @@ msgstr "Sebzés tűrés"
 
 #: src/screens/crew6/scienceScreen.cpp:94 src/screens/crew6/relayScreen.cpp:81
 msgid "Callsign"
-msgstr ""
+msgstr "Hívójel"
 
 #: src/screens/crew6/scienceScreen.cpp:96
 msgctxt "science"
@@ -539,7 +539,7 @@ msgstr "Hajó test"
 #: src/screens/crew6/scienceScreen.cpp:202
 #: src/screens/crew6/scienceScreen.cpp:244 src/screens/crew6/relayScreen.cpp:88
 msgid "Zoom: {zoom}x"
-msgstr "Nagyítás: {zoom}x"
+msgstr "Nagyítás: x{zoom}"
 
 #: src/screens/crew6/scienceScreen.cpp:215
 msgctxt "button"
@@ -612,11 +612,11 @@ msgstr "{value} {unit}/perc"
 
 #: src/screens/gm/tweak.cpp:543
 msgid "{system} health"
-msgstr "Épség"
+msgstr ""{system} épség"
 
 #: src/screens/gm/tweak.cpp:562
 msgid "{system} heat"
-msgstr "hőmérséklet"
+msgstr "{system} hőmérséklet"
 
 #: src/screenComponents/aimLock.cpp:11
 msgctxt "missile"
@@ -775,7 +775,7 @@ msgstr "Követő"
 #: src/spaceObjects/spaceship.cpp:1487
 msgctxt "missile"
 msgid "Nuke"
-msgstr "Atom"
+msgstr "Nukleáris töltet"
 
 #: src/spaceObjects/spaceship.cpp:1489
 msgctxt "missile"
@@ -868,7 +868,7 @@ msgstr "Támogató"
 #: scripts/shipTemplates_Corvette.lua:235
 #, lua-format
 msgid "Personnel Freighter %d"
-msgstr "Polgári teherhajó %d"
+msgstr "Polgári személyszállító %d"
 
 #: scripts/shipTemplates_Corvette.lua:235
 #: scripts/shipTemplates_Corvette.lua:248
@@ -1328,7 +1328,7 @@ msgstr "Tudományos tiszt Radar Rögzítése"
 
 #: src/menus/optionsMenu.cpp:171
 msgid "Preview Soundtracks"
-msgstr ""
+msgstr "Betekintő a zenékbe"
 
 #: src/menus/optionsMenu.cpp:187
 msgctxt "options"
@@ -1453,7 +1453,7 @@ msgstr "Taktikai tiszt"
 #: src/playerInfo.cpp:228
 msgctxt "station"
 msgid "Engineering+"
-msgstr "Gépház"
+msgstr "Gépház+"
 
 #: src/playerInfo.cpp:229
 msgctxt "station"
@@ -1506,7 +1506,7 @@ msgstr "Nics alosztály"
 #: src/screens/crew4/operationsScreen.cpp:84
 #: src/screens/crew6/relayScreen.cpp:147
 msgid "Reputation"
-msgstr ""
+msgstr "Hírnév"
 
 #: src/screens/crew4/operationsScreen.cpp:88
 #: src/screens/crew6/relayScreen.cpp:151
@@ -1617,7 +1617,7 @@ msgstr "Pajzsok"
 #: src/screens/gm/tweak.cpp:55
 msgctxt "tab"
 msgid "Tubes"
-msgstr "vetőcsövek"
+msgstr "Vetőcsövek"
 
 #: src/screens/gm/tweak.cpp:57
 msgctxt "tab"
