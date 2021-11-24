@@ -1,44 +1,39 @@
 #include "textureManager.h"
 #include "gui2_keyvaluedisplay.h"
 
-GuiKeyValueDisplay::GuiKeyValueDisplay(GuiContainer* owner, string id, float div_distance, string key, string value)
-: GuiElement(owner, id), div_distance(div_distance), key(key), value(value), text_size(20), color(sf::Color::White)
+GuiKeyValueDisplay::GuiKeyValueDisplay(GuiContainer* owner, const string& id, float div_distance, const string& key, const string& value)
+: GuiElement(owner, id), key(key), value(value), text_size(20.f), div_distance(div_distance), color(glm::u8vec4{255,255,255,255})
 {
 }
 
-void GuiKeyValueDisplay::onDraw(sf::RenderTarget& window)
+void GuiKeyValueDisplay::onDraw(sp::RenderTarget& renderer)
 {
-    float div_size = 5.0;
+    float div_size = 5.f;
 
-    drawStretched(window, rect, "gui/KeyValueBackground", color);
-    if (rect.width >= rect.height)
+    renderer.drawStretched(rect, "gui/widget/KeyValueBackground.png", color);
+    if (rect.size.x >= rect.size.y)
     {
-        drawText(window, sf::FloatRect(rect.left, rect.top, rect.width * div_distance - div_size, rect.height), key, ACenterRight, text_size);
-        drawText(window, sf::FloatRect(rect.left + rect.width * div_distance + div_size, rect.top, rect.width * (1.0 - div_distance), rect.height), value, ACenterLeft, text_size, bold_font);
+        renderer.drawText(sp::Rect(rect.position.x, rect.position.y, rect.size.x * div_distance - div_size, rect.size.y), key, sp::Alignment::CenterRight, text_size);
+        renderer.drawText(sp::Rect(rect.position.x + rect.size.x * div_distance + div_size, rect.position.y, rect.size.x * (1.f - div_distance), rect.size.y), value, sp::Alignment::CenterLeft, text_size, bold_font);
         if (icon_texture != "")
         {
-            sf::Sprite icon;
-            textureManager.setTexture(icon, icon_texture);
-            float scale = rect.height / icon.getTextureRect().height * 0.8;
-            icon.setScale(scale, scale);
-            icon.setPosition(rect.left + rect.height / 2, rect.top + rect.height / 2);
-            window.draw(icon);
+            renderer.drawSprite(icon_texture, glm::vec2(rect.position.x + rect.size.y * 0.5f, rect.position.y + rect.size.y * 0.5f), rect.size.y * 0.8f);
         }
     }
     else
     {
-        drawVerticalText(window, sf::FloatRect(rect.left, rect.top + rect.height * (1.0 - div_distance) + div_size, rect.width, rect.height * div_distance - div_size), key, ACenterRight, text_size);
-        drawVerticalText(window, sf::FloatRect(rect.left, rect.top, rect.width, rect.height * (1.0 - div_distance) - div_size), value, ACenterLeft, text_size, bold_font);
+        renderer.drawText(sp::Rect(rect.position.x, rect.position.y + rect.size.y * (1.f - div_distance) + div_size, rect.size.x, rect.size.y * div_distance - div_size), key, sp::Alignment::TopCenter, text_size, main_font, {255,255,255,255}, sp::Font::FlagVertical);
+        renderer.drawText(sp::Rect(rect.position.x, rect.position.y, rect.size.x, rect.size.y * (1.f - div_distance) - div_size), value, sp::Alignment::BottomCenter, text_size, bold_font, {255,255,255,255}, sp::Font::FlagVertical);
     }
 }
 
-GuiKeyValueDisplay* GuiKeyValueDisplay::setKey(string key)
+GuiKeyValueDisplay* GuiKeyValueDisplay::setKey(const string& key)
 {
     this->key = key;
     return this;
 }
 
-GuiKeyValueDisplay* GuiKeyValueDisplay::setValue(string value)
+GuiKeyValueDisplay* GuiKeyValueDisplay::setValue(const string& value)
 {
     this->value = value;
     return this;
@@ -50,13 +45,13 @@ GuiKeyValueDisplay* GuiKeyValueDisplay::setTextSize(float text_size)
     return this;
 }
 
-GuiKeyValueDisplay* GuiKeyValueDisplay::setColor(sf::Color color)
+GuiKeyValueDisplay* GuiKeyValueDisplay::setColor(glm::u8vec4 color)
 {
     this->color = color;
     return this;
 }
 
-GuiKeyValueDisplay* GuiKeyValueDisplay::setIcon(string icon_texture)
+GuiKeyValueDisplay* GuiKeyValueDisplay::setIcon(const string& icon_texture)
 {
     this->icon_texture = icon_texture;
     return this;

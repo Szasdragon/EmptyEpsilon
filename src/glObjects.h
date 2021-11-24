@@ -1,12 +1,10 @@
 #ifndef EMPTYEPSILON_GLOBJECTS_H
 #define EMPTYEPSILON_GLOBJECTS_H
 
-#include "featureDefs.h"
-
-#if FEATURE_3D_RENDERING
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 
 namespace gl
 {
@@ -164,6 +162,12 @@ namespace gl
     public:
         explicit ScopedVertexAttribArray(int32_t attrib);
         ~ScopedVertexAttribArray();
+
+        ScopedVertexAttribArray(const ScopedVertexAttribArray&) = delete;
+        ScopedVertexAttribArray& operator=(const ScopedVertexAttribArray&) = delete;
+
+        ScopedVertexAttribArray(ScopedVertexAttribArray&&) noexcept;
+        ScopedVertexAttribArray& operator=(ScopedVertexAttribArray&&) noexcept;
         int32_t get() const { return attrib; }
     private:
         int32_t attrib = -1;
@@ -179,10 +183,10 @@ namespace gl
     private:
         uint32_t target = 0;
         uint32_t texture = 0;
-        int32_t previously_bound = -1;
+        uint32_t previously_bound = std::numeric_limits<uint32_t>::max();
     };
 
     bool isAvailable();
 }
-#endif // FEATURE_3D_RENDERING
+
 #endif // EMPTYEPSILON_GLOBJECTS_H

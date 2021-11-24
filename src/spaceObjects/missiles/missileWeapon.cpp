@@ -1,6 +1,12 @@
 #include "missileWeapon.h"
 #include "particleEffect.h"
 #include "spaceObjects/explosionEffect.h"
+#include "random.h"
+#include "multiplayer_server.h"
+#include "multiplayer_client.h"
+#include "soundManager.h"
+
+#include "i18n.h"
 
 
 /// Base class for every missile (mines are not missiles)
@@ -41,17 +47,11 @@ MissileWeapon::MissileWeapon(string multiplayer_name, const MissileWeaponData& d
     launch_sound_played = false;
 }
 
-void MissileWeapon::drawOnRadar(sf::RenderTarget& window, sf::Vector2f position, float scale, float rotation, bool long_range)
+void MissileWeapon::drawOnRadar(sp::RenderTarget& renderer, glm::vec2 position, float scale, float rotation, bool long_range)
 {
     if (long_range) return;
 
-    sf::Sprite object_sprite;
-    textureManager.setTexture(object_sprite, "RadarArrow.png");
-    object_sprite.setRotation(getRotation()-rotation);
-    object_sprite.setPosition(position);
-    object_sprite.setColor(data.color);
-    object_sprite.setScale(0.25 + 0.25 * category_modifier, 0.25 + 0.25 * category_modifier);
-    window.draw(object_sprite);
+    renderer.drawRotatedSprite("radar/arrow.png", position, 32 * (0.25f + 0.25f * category_modifier), getRotation()-rotation, data.color);
 }
 
 void MissileWeapon::update(float delta)
@@ -69,16 +69,16 @@ void MissileWeapon::update(float delta)
 
     // Since we do want the range to remain the same, ensure that slow missiles don't die down as fast.
     lifetime -= delta * size_speed_modifier;
-    if (lifetime < 0)
+    if (lifetime < 0 && isServer())
     {
         lifeEnded();
         destroy();
     }
-    setVelocity(sf::vector2FromAngle(getRotation()) * data.speed * size_speed_modifier);
+    setVelocity(vec2FromAngle(getRotation()) * data.speed * size_speed_modifier);
 
     if (delta > 0)
     {
-        ParticleEngine::spawn(sf::Vector3f(getPosition().x, getPosition().y, 0), sf::Vector3f(getPosition().x, getPosition().y, 0), sf::Vector3f(1, 0.8, 0.8), sf::Vector3f(0, 0, 0), 5, 20, 5.0);
+        ParticleEngine::spawn(glm::vec3(getPosition().x, getPosition().y, 0), glm::vec3(getPosition().x, getPosition().y, 0), glm::vec3(1, 0.8, 0.8), glm::vec3(0, 0, 0), 5, 20, 5.0);
     }
 }
 
@@ -100,7 +100,7 @@ void MissileWeapon::collide(Collisionable* target, float force)
 
 void MissileWeapon::updateMovement()
 {
-    if (data.turnrate > 0.0)
+    if (data.turnrate > 0.0f)
     {
         if (data.homing_range > 0)
         {
@@ -114,19 +114,23 @@ void MissileWeapon::updateMovement()
                 target = game_client->getObjectById(target_id);
             }
 
-            if (target && (target->getPosition() - getPosition()) < data.homing_range + target->getRadius())
+            if (target)
             {
-                target_angle = sf::vector2ToAngle(target->getPosition() - getPosition());
+                float r = data.homing_range + target->getRadius();
+                if (glm::length2(target->getPosition() - getPosition()) < r*r)
+                {
+                    target_angle = vec2ToAngle(target->getPosition() - getPosition());
+                }
             }
         }
         // Small missiles have a larger speed & rotational speed, large ones are slower and turn less fast
         float size_speed_modifier = 1 / category_modifier;
 
-        float angle_diff = sf::angleDifference(getRotation(), target_angle);
+        float angle_diff = angleDifference(getRotation(), target_angle);
 
-        if (angle_diff > 1.0)
+        if (angle_diff > 1.0f)
             setAngularVelocity(data.turnrate * size_speed_modifier);
-        else if (angle_diff < -1.0)
+        else if (angle_diff < -1.0f)
             setAngularVelocity(data.turnrate * -1.0f * size_speed_modifier);
         else
             setAngularVelocity(angle_diff * data.turnrate * size_speed_modifier);
@@ -187,19 +191,19 @@ std::unordered_map<string, string> MissileWeapon::getGMInfo()
 
     if (owner)
     {
-        ret["Owner"] = owner->getCallSign();
+        ret[trMark("gm_info", "Owner")] = owner->getCallSign();
     }
 
     P<SpaceObject> target = game_server->getObjectById(target_id);
 
     if (target)
     {
-        ret["Target"] = target->getCallSign();
+        ret[trMark("gm_info", "Target")] = target->getCallSign();
     }
 
-    ret["Faction"] = getLocaleFaction();
-    ret["Lifetime"] = lifetime;
-    ret["Size"] = getMissileSize();
+    ret[trMark("gm_info", "Faction")] = getLocaleFaction();
+    ret[trMark("gm_info", "Lifetime")] = lifetime;
+    ret[trMark("gm_info", "Size")] = getMissileSize();
 
     return ret;
 }

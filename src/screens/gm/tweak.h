@@ -42,7 +42,7 @@ public:
 
     void open(P<SpaceObject> target);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 private:
     P<SpaceObject> target;
     std::vector<GuiTweakPage*> pages;
@@ -57,6 +57,7 @@ private:
     GuiToggleButton* warp_toggle;
     GuiToggleButton* jump_toggle;
     GuiSlider* impulse_speed_slider;
+    GuiSlider* impulse_reverse_speed_slider;
     GuiSlider* turn_speed_slider;
     GuiSlider* hull_max_slider;
     GuiSlider* hull_slider;
@@ -69,7 +70,7 @@ private:
 public:
     GuiTweakShip(GuiContainer* owner);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 
     virtual void open(P<SpaceObject> target) override;
 };
@@ -83,7 +84,7 @@ private:
 public:
     GuiJammerTweak(GuiContainer* owner);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 
     virtual void open(P<SpaceObject> target) override;
 };
@@ -97,7 +98,7 @@ private:
 public:
     GuiAsteroidTweak(GuiContainer* owner);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 
     virtual void open(P<SpaceObject> target) override;
 };
@@ -112,7 +113,7 @@ private:
 public:
     GuiShipTweakMissileWeapons(GuiContainer* owner);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 
     virtual void open(P<SpaceObject> target) override;
 };
@@ -132,7 +133,7 @@ private:
 public:
     GuiShipTweakMissileTubes(GuiContainer* owner);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 
     virtual void open(P<SpaceObject> target) override;
 };
@@ -147,7 +148,7 @@ private:
 public:
     GuiShipTweakShields(GuiContainer* owner);
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 
     virtual void open(P<SpaceObject> target) override;
 };
@@ -172,7 +173,7 @@ public:
 
     virtual void open(P<SpaceObject> target) override;
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 };
 
 class GuiShipTweakSystems : public GuiTweakPage
@@ -189,7 +190,7 @@ public:
 
     virtual void open(P<SpaceObject> target) override;
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 };
 
 class GuiShipTweakSystemPowerFactors : public GuiTweakPage
@@ -204,7 +205,31 @@ public:
     explicit GuiShipTweakSystemPowerFactors(GuiContainer* owner);
 
     void open(P<SpaceObject> target) override;
-    void onDraw(sf::RenderTarget& window) override;
+    void onDraw(sp::RenderTarget& target) override;
+};
+
+class GuiShipTweakSystemRates : public GuiTweakPage
+{
+public:
+    enum class Type
+    {
+        Power = 0,
+        Heat,
+        Coolant
+    };
+
+    GuiShipTweakSystemRates(GuiContainer* owner, Type type);
+
+    void open(P<SpaceObject> target) override;
+    void onDraw(sp::RenderTarget& target) override;
+private:
+    float getRateValue(ESystem system, Type type) const;
+    void setRateValue(ESystem system, Type type, float value);
+    std::array<GuiLabel*, SYS_COUNT> current_rates;
+    std::array<GuiTextEntry*, SYS_COUNT> desired_rates;
+
+    P<SpaceShip> target;
+    Type type;
 };
 
 class GuiShipTweakPlayer : public GuiTweakPage
@@ -225,7 +250,7 @@ public:
 
     virtual void open(P<SpaceObject> target) override;
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 };
 
 class GuiShipTweakPlayer2 : public GuiTweakPage
@@ -244,12 +269,18 @@ private:
     GuiToggleButton* can_launch_probe;
     GuiToggleButton* auto_coolant_enabled;
     GuiToggleButton* auto_repair_enabled;
+
+    GuiLabel* energy_warp_per_second{};
+    GuiTextEntry* desired_energy_warp_per_second{};
+
+    GuiLabel* energy_shield_per_second{};
+    GuiTextEntry* desired_energy_shield_per_second{};
 public:
     GuiShipTweakPlayer2(GuiContainer* owner);
 
     virtual void open(P<SpaceObject> target) override;
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 };
 
 class GuiObjectTweakBase : public GuiTweakPage
@@ -270,6 +301,6 @@ public:
 
     virtual void open(P<SpaceObject> target) override;
 
-    virtual void onDraw(sf::RenderTarget& window) override;
+    virtual void onDraw(sp::RenderTarget& target) override;
 };
 #endif//TWEAK_H

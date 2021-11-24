@@ -1,4 +1,5 @@
 #include <memory>
+#include <set>
 #include <string.h>
 #include <i18n.h>
 #include <multiplayer_proxy.h>
@@ -7,6 +8,9 @@
 #include <sys/stat.h>
 #endif
 #include <sys/types.h>
+#include "textureManager.h"
+#include "soundManager.h"
+#include "graphics/freetypefont.h"
 #include "gui/mouseRenderer.h"
 #include "gui/debugRenderer.h"
 #include "gui/colorConfig.h"
@@ -16,7 +20,6 @@
 #include "menus/autoConnectScreen.h"
 #include "menus/shipSelectionScreen.h"
 #include "menus/optionsMenu.h"
-#include "mouseCalibrator.h"
 #include "factionInfo.h"
 #include "gameGlobalInfo.h"
 #include "spaceObjects/spaceObject.h"
@@ -27,9 +30,12 @@
 #include "preferenceManager.h"
 #include "networkRecorder.h"
 #include "tutorialGame.h"
+#include "windowManager.h"
+
+#include "graphics/opengl.h"
 
 #include "hardware/hardwareController.h"
-#ifdef _WIN32
+#if WITH_DISCORD
 #include "discord.h"
 #endif
 
@@ -39,18 +45,18 @@
 #include <libgen.h>
 #endif
 
-sf::Vector3f camera_position;
+#include "shaderRegistry.h"
+#include "glObjects.h"
+
+glm::vec3 camera_position;
 float camera_yaw;
 float camera_pitch;
-sf::Font* main_font;
-sf::Font* bold_font;
-RenderLayer* backgroundLayer;
-RenderLayer* objectLayer;
-RenderLayer* effectLayer;
-RenderLayer* hudLayer;
+sp::Font* main_font;
+sp::Font* bold_font;
 RenderLayer* mouseLayer;
 PostProcessor* glitchPostProcessor;
 PostProcessor* warpPostProcessor;
+P<Window> main_window;
 
 int main(int argc, char** argv)
 {
@@ -104,6 +110,7 @@ int main(int argc, char** argv)
 #if defined(_WIN32) && !defined(DEBUG)
     Logging::setLogFile("EmptyEpsilon.log");
 #endif
+    LOG(Info, "Starting...");
 #ifdef CONFIG_DIR
     PreferencesManager::load(CONFIG_DIR "options.ini");
 #endif
@@ -159,25 +166,20 @@ int main(int argc, char** argv)
 
     new DirectoryResourceProvider("resources/");
     new DirectoryResourceProvider("scripts/");
-    new DirectoryResourceProvider("packs/SolCommand/");
     PackResourceProvider::addPackResourcesForDirectory("packs/");
     if (getenv("HOME"))
     {
         new DirectoryResourceProvider(string(getenv("HOME")) + "/.emptyepsilon/resources/");
         new DirectoryResourceProvider(string(getenv("HOME")) + "/.emptyepsilon/scripts/");
-        new DirectoryResourceProvider(string(getenv("HOME")) + "/.emptyepsilon/packs/SolCommand/");
     }
 #ifdef RESOURCE_BASE_DIR
     new DirectoryResourceProvider(RESOURCE_BASE_DIR "resources/");
     new DirectoryResourceProvider(RESOURCE_BASE_DIR "scripts/");
-    new DirectoryResourceProvider(RESOURCE_BASE_DIR "packs/SolCommand/");
     PackResourceProvider::addPackResourcesForDirectory(RESOURCE_BASE_DIR "packs");
 #endif
     textureManager.setDefaultSmooth(true);
     textureManager.setDefaultRepeated(true);
-    textureManager.setAutoSprite(false);
-    textureManager.getTexture("Tokka_WalkingMan.png", sf::Vector2i(6, 1)); //Setup the sprite mapping.
-    i18n::load("locale/" + PreferencesManager::get("language", "en") + ".po");
+    i18n::load("locale/main." + PreferencesManager::get("language", "en") + ".po");
 
     if (PreferencesManager::get("httpserver").toInt() != 0)
     {
@@ -186,14 +188,12 @@ int main(int argc, char** argv)
             port_nr = 80;
         LOG(INFO) << "Enabling HTTP script access on port: " << port_nr;
         LOG(INFO) << "NOTE: This is potentially a risk!";
-        HttpServer* server = new HttpServer(port_nr);
-        server->addHandler(new HttpRequestFileHandler("www"));
-        server->addHandler(new HttpScriptHandler());
+        new EEHttpServer(port_nr, PreferencesManager::get("www_directory", "www"));
     }
 
     colorConfig.load();
-    HotkeyConfig::get().load();
-    joystick.load();
+    sp::io::Keybinding::loadKeybindings("keybindings.json");
+    keys.init();
 
     if (PreferencesManager::get("username", "") == "")
     {
@@ -206,16 +206,12 @@ int main(int argc, char** argv)
     if (PreferencesManager::get("headless") == "")
     {
         //Setup the rendering layers.
-        backgroundLayer = new RenderLayer();
-        objectLayer = new RenderLayer(backgroundLayer);
-        effectLayer = new RenderLayer(objectLayer);
-        hudLayer = new RenderLayer(effectLayer);
-        mouseLayer = new RenderLayer(hudLayer);
+        defaultRenderLayer = new RenderLayer();
+        mouseLayer = new RenderLayer(defaultRenderLayer);
         glitchPostProcessor = new PostProcessor("shaders/glitch", mouseLayer);
         glitchPostProcessor->enabled = false;
         warpPostProcessor = new PostProcessor("shaders/warp", glitchPostProcessor);
         warpPostProcessor->enabled = false;
-        defaultRenderLayer = objectLayer;
 
         int width = 1200;
         int height = 900;
@@ -228,48 +224,51 @@ int main(int argc, char** argv)
             if (fsaa < 2)
                 fsaa = 2;
         }
-        P<WindowManager> window_manager = new WindowManager(width, height, fullscreen, warpPostProcessor, fsaa);
+
+        main_window = new Window({width, height}, fullscreen, warpPostProcessor, fsaa);
+#if defined(DEBUG)
+        // Synchronous gl debug output always in debug.
+        constexpr bool wants_gl_debug = true;
+        constexpr bool wants_gl_debug_synchronous = true;
+#else
+        auto wants_gl_debug = !PreferencesManager::get("gl_debug").empty();
+        auto wants_gl_debug_synchronous = !PreferencesManager::get("gl_debug_synchronous").empty();
+#endif
+        if (wants_gl_debug)
+        {
+            if (sp::gl::enableDebugOutput(wants_gl_debug_synchronous))
+                LOG(INFO, "GL Debug output enabled.");
+            else
+                LOG(WARNING, "GL Debug output requested but not available on this system.");
+        }
+
         if (PreferencesManager::get("instance_name") != "")
-            window_manager->setTitle("EmptyEpsilon - " + PreferencesManager::get("instance_name"));
-        window_manager->setAllowVirtualResize(true);
-        engine->registerObject("windowManager", window_manager);
+            main_window->setTitle("EmptyEpsilon - " + PreferencesManager::get("instance_name"));
+        else
+            main_window->setTitle("EmptyEpsilon");
+
+        if (gl::isAvailable())
+        {
+            ShaderRegistry::Shader::initialize();
+        }
     }
-    if (PreferencesManager::get("touchscreen").toInt())
-    {
-        InputHandler::touch_screen = true;
-    }
-    if (!InputHandler::touch_screen)
+    if (PreferencesManager::get("touchscreen").toInt() == 0)
     {
         engine->registerObject("mouseRenderer", new MouseRenderer());
     }
 
     new DebugRenderer();
 
-    if (PreferencesManager::get("touchcalibfile") != "")
-    {
-        FILE* f = fopen(PreferencesManager::get("touchcalibfile").c_str(), "r");
-        if (f)
-        {
-            float m[6];
-            if (fscanf(f, "%f %f %f %f %f %f", &m[0], &m[1], &m[2], &m[3], &m[4], &m[5]) == 6)
-                InputHandler::mouse_transform = sf::Transform(m[0], m[1], m[2], m[3], m[4], m[5], 0, 0, 1);
-            fclose(f);
-        }
-    }
-
     soundManager->setMusicVolume(PreferencesManager::get("music_volume", "50").toFloat());
     soundManager->setMasterSoundVolume(PreferencesManager::get("sound_volume", "50").toFloat());
 
-    if (PreferencesManager::get("disable_shaders").toInt())
-        PostProcessor::setEnable(false);
+    P<ResourceStream> main_font_stream = getResourceStream(PreferencesManager::get("font_regular", "gui/fonts/BigShouldersDisplay-SemiBold.ttf"));
+    main_font = new sp::FreetypeFont(main_font_stream);
 
-    P<ResourceStream> main_font_stream = getResourceStream(PreferencesManager::get("font_regular", "gui/fonts/BebasNeue Regular.otf"));
-    main_font = new sf::Font();
-    main_font->loadFromStream(**main_font_stream);
+    P<ResourceStream> bold_font_stream = getResourceStream(PreferencesManager::get("font_bold", "gui/fonts/BigShouldersDisplay-ExtraBold.ttf"));
+    bold_font = new sp::FreetypeFont(bold_font_stream);
 
-    P<ResourceStream> bold_font_stream = getResourceStream(PreferencesManager::get("font_bold", "gui/fonts/BebasNeue Bold.otf"));
-    bold_font = new sf::Font();
-    bold_font->loadFromStream(**bold_font_stream);
+    sp::RenderTarget::setDefaultFont(main_font);
 
     {
         P<ScriptObject> modelDataScript = new ScriptObject("model_data.lua");
@@ -297,10 +296,15 @@ int main(int argc, char** argv)
         }
     }
 
+    // On Android, this requires the 'record audio' permissions,
+    // which is always a scary thing for users.
+    // Since there is no way to access it (yet) via a touchscreen, compile out.
+#if !defined(ANDROID)
     // Set up voice chat and key bindings.
     NetworkAudioRecorder* nar = new NetworkAudioRecorder();
-    nar->addKeyActivation(HotkeyConfig::get().getKeyByHotkey("BASIC", "VOICE_CHAT_ALL"), 0);
-    nar->addKeyActivation(HotkeyConfig::get().getKeyByHotkey("BASIC", "VOICE_CHAT_SHIP"), 1);
+    nar->addKeyActivation(&keys.voice_all, 0);
+    nar->addKeyActivation(&keys.voice_ship, 1);
+#endif
 
     P<HardwareController> hardware_controller = new HardwareController();
 #ifdef CONFIG_DIR
@@ -311,19 +315,36 @@ int main(int argc, char** argv)
     else
         hardware_controller->loadConfiguration("hardware.ini");
 
-#ifdef _WIN32
-    new DiscordRichPresence();
+#if WITH_DISCORD
+    {
+        std::filesystem::path discord_sdk
+        {
+#ifdef RESOURCE_BASE_DIR
+        RESOURCE_BASE_DIR
 #endif
+        };
+        discord_sdk /= std::filesystem::path{ "plugins" } / DynamicLibrary::add_native_suffix("discord_game_sdk");
+        new DiscordRichPresence(discord_sdk);
+    }
+#endif // WITH_DISCORD
 
-    returnToMainMenu();
+    if (PreferencesManager::get("server_scenario") == "")
+        returnToMainMenu();
+    else
+    {
+        new EpsilonServer();
+        gameGlobalInfo->startScenario(PreferencesManager::get("server_scenario"));
+        new ShipSelectionScreen();
+    }
+
     engine->runMainLoop();
 
     // Set FSAA and fullscreen defaults from windowManager.
-    P<WindowManager> windowManager = engine->getObject("windowManager");
-    if (windowManager)
+    
+    if (P<Window> window = main_window; window)
     {
-        PreferencesManager::set("fsaa", windowManager->getFSAA());
-        PreferencesManager::set("fullscreen", windowManager->isFullscreen() ? 1 : 0);
+        PreferencesManager::set("fsaa", window->getFSAA());
+        PreferencesManager::set("fullscreen", window->isFullscreen() ? 1 : 0);
     }
 
     // Set the default music_, sound_, and engine_volume to the current volume.
@@ -337,9 +358,6 @@ int main(int argc, char** argv)
 
     if (PreferencesManager::get("engine_enabled").empty())
         PreferencesManager::set("engine_enabled", "2");
-
-    // Set shaders to default.
-    PreferencesManager::set("disable_shaders", PostProcessor::isEnabled() ? 0 : 1);
 
     if (PreferencesManager::get("headless") == "")
     {
@@ -358,8 +376,9 @@ int main(int argc, char** argv)
         {
             PreferencesManager::save("options.ini");
         }
+        sp::io::Keybinding::saveKeybindings("keybindings.json");
     }
-
+    main_window = nullptr;
     delete engine;
 
     return 0;
@@ -373,7 +392,6 @@ void returnToMainMenu()
         if (PreferencesManager::get("headless_name") != "") game_server->setServerName(PreferencesManager::get("headless_name"));
         if (PreferencesManager::get("headless_password") != "") game_server->setPassword(PreferencesManager::get("headless_password").upper());
         if (PreferencesManager::get("headless_internet") == "1") game_server->registerOnMasterServer(PreferencesManager::get("registry_registration_url", "http://daid.eu/ee/register.php"));
-        if (PreferencesManager::get("variation") != "") gameGlobalInfo->variation = PreferencesManager::get("variation");
         gameGlobalInfo->startScenario(PreferencesManager::get("headless"));
 
         if (PreferencesManager::get("startpaused") != "1")
@@ -385,10 +403,6 @@ void returnToMainMenu()
         if (crew_position < 0) crew_position = 0;
         if (crew_position > max_crew_positions) crew_position = max_crew_positions;
         new AutoConnectScreen(ECrewPosition(crew_position), PreferencesManager::get("autocontrolmainscreen").toInt(), PreferencesManager::get("autoconnectship", "solo"));
-    }
-    else if (PreferencesManager::get("touchcalib").toInt())
-    {
-        new MouseCalibrator(PreferencesManager::get("touchcalibfile"));
     }
     else if (PreferencesManager::get("tutorial").toInt())
     {

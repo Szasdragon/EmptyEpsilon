@@ -5,6 +5,16 @@ import subprocess
 import json
 import os
 
+def update_other_languages(base):
+    assert base.endswith(".en.po")
+    for other in glob.glob(base[:-5] + "*.po"):
+        if other == base:
+            continue
+        print("Merge %s -> %s" % (base, other))
+        cmd = ["msgmerge", "-U", other, base]
+        subprocess.run(cmd, check=True)
+
+
 os.makedirs("scripts/locale", exist_ok=True)
 for scenario in glob.glob("scripts/scenario_*.lua"):
     output = scenario.replace(".lua", ".en.po").replace("scripts/", "scripts/locale/")
@@ -28,13 +38,44 @@ for scenario in glob.glob("scripts/scenario_*.lua"):
         f.write("msgstr \"\"\n")
     if "description" in info:
         f.write("# Scenario description\n")
-        if "\n" in info["description"]:
-            f.write("msgid \"\"\n")
-            for desc in info["description"].split("\n"):
-                f.write("    %s\n" % (json.dumps(desc)))
-        else:
-            f.write("msgid %s\n" % (json.dumps(info["description"])))
+        f.write("msgid %s\n" % (json.dumps(info["description"].replace("\r", ""))))
         f.write("msgstr \"\"\n")
+    for key, value in info.items():
+        if key.startswith("setting[") and key.endswith("]"):
+            setting_name = key[8:-1]
+            f.write("# Scenario setting\n")
+            f.write("msgctxt %s\n" % (json.dumps("setting")))
+            f.write("msgid %s\n" % (json.dumps(setting_name)))
+            f.write("msgstr \"\"\n")
+            f.write("msgctxt %s\n" % (json.dumps("setting")))
+            f.write("msgid %s\n" % (json.dumps(value)))
+            f.write("msgstr \"\"\n")
+            for key2, value2 in info.items():
+                if key2.startswith(setting_name + "[") and key2.endswith("]"):
+                    setting_value = key2[len(setting_name) + 1:-1]
+                    if "|" in setting_value:
+                        setting_value = setting_value[:setting_value.find("|")]
+                    f.write("msgctxt %s\n" % (json.dumps(setting_name)))
+                    f.write("msgid %s\n" % (json.dumps(setting_value)))
+                    f.write("msgstr \"\"\n")
+                    f.write("msgctxt %s\n" % (json.dumps(setting_name)))
+                    f.write("msgid %s\n" % (json.dumps(value2)))
+                    f.write("msgstr \"\"\n")
     f.close()
+    #print(open(output, "rt").read())
+    #exit()
+    cmd = ["xgettext", "--keyword=_:1c,2", "--keyword=_:1", "--omit-header", "-j", "-d", output[:-3], "-C", "-"]
+    subprocess.run(cmd, check=True, input=b"")
+    pre = open(output, "rt").read()
     cmd = ["xgettext", "--keyword=_:1c,2", "--keyword=_:1", "--omit-header", "-j", "-d", output[:-3], scenario]
     subprocess.run(cmd, check=True)
+    post = open(output, "rt").read()
+    if pre == post:
+        os.unlink(output)
+        print("Skipped %s" % (scenario))
+    else:
+        update_other_languages(output)
+        print("Done %s" % (scenario))
+
+update_other_languages("resources/locale/main.en.po")
+update_other_languages("resources/locale/tutorial.en.po")

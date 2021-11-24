@@ -1,3 +1,14 @@
+# Set minimum target macOS version: https://cmake.org/cmake/help/v3.8/variable/CMAKE_OSX_DEPLOYMENT_TARGET.html#variable:CMAKE_OSX_DEPLOYMENT_TARGET
+# SDL2 targets 10.5, however EE targets C++17 features only available in 10.15+ (Catalina, June 2019).
+# Must be first!
+if(APPLE)
+  if(NOT DEFINED ENV{MACOSX_DEPLOYMENT_TARGET})
+    set(ENV{MACOSX_DEPLOYMENT_TARGET} "10.15")
+  endif()
+  
+  message(STATUS "Mac deployment target is: $ENV{MACOSX_DEPLOYMENT_TARGET}")
+endif()
+
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
@@ -24,77 +35,109 @@ endif()
 
 project(EmptyEpsilon LANGUAGES CXX C  VERSION ${MAJOR}.${MINOR}.${PATCH})
 
+include(GNUInstallDirs)
+
+# Defaults
+set(WITH_DISCORD_DEFAULT OFF)
+if(WIN32)
+  set(WITH_DISCORD_DEFAULT ON)
+endif()
+
 # User-settings
 set(SERIOUS_PROTON_DIR "../SeriousProton" CACHE PATH "Path to SeriousProton")
+if(NOT ANDROID)
+    option(WITH_DISCORD "Build with Discord support" ${WITH_DISCORD_DEFAULT})
+else()
+    set(WITH_DISCORD OFF)
+    option(APK_WITH_PACKS "Build APK with pack files (3D assets)" ON)
+endif()
 
 message(STATUS "EmptyEpsilon Version = ${PROJECT_VERSION}")
 
-# Dependencies
-
-# Setup OpenGl
-if(NOT ANDROID)
-    find_package(OpenGL REQUIRED)
+# Enable colored output with Ninja
+if((CMAKE_GENERATOR MATCHES "Ninja") AND (CMAKE_CXX_COMPILER_ID MATCHES "GNU"))
+    add_compile_options (-fdiagnostics-color)
 endif()
 
-# SeriousProton
-# Use SP provided json library.
-set(SERIOUSPROTON_WITH_JSON ON CACHE BOOL "" FORCE)
-add_subdirectory("${SERIOUS_PROTON_DIR}" "${PROJECT_BINARY_DIR}/SeriousProton" EXCLUDE_FROM_ALL)
+# Dependencies
 
-message(STATUS "Crash Logger is: ${ENABLE_CRASH_LOGGER}")
+# SeriousProton
+add_subdirectory("${SERIOUS_PROTON_DIR}" "${PROJECT_BINARY_DIR}/SeriousProton" EXCLUDE_FROM_ALL)
 
 set(EXTERNALS_DIR "${PROJECT_BINARY_DIR}/externals")
 set(DOWNLOADS_DIR "${PROJECT_BINARY_DIR}/downloads")
 file(MAKE_DIRECTORY "${EXTERNAL_DIR}" "${DOWNLOADS_DIR}")
 
 # Discord
-if(WIN32)
+if(WITH_DISCORD)
   set(DISCORD_ARCH "x86_64")
   if(${CMAKE_SIZEOF_VOID_P} EQUAL 4)
     set(DISCORD_ARCH "x86")
   endif()
+  set(DISCORD_INCLUDE_PATH "${EXTERNALS_DIR}/discord/c")
   set(DISCORD_LIB_PATH "${EXTERNALS_DIR}/discord/lib/${DISCORD_ARCH}")
-  file(MAKE_DIRECTORY "${DISCORD_LIB_PATH}")
-  if(NOT EXISTS "${DISCORD_LIB_PATH}/discord_game_sdk.dll.lib")
+  file(MAKE_DIRECTORY "${DISCORD_INCLUDE_PATH}")
+  if(NOT EXISTS "${DISCORD_INCLUDE_PATH}/discord_game_sdk.h")
     set(DISCORD_GAME_SDK "${DOWNLOADS_DIR}/discord_game_sdk.zip")
     file(DOWNLOAD "https://dl-game-sdk.discordapp.net/latest/discord_game_sdk.zip" "${DISCORD_GAME_SDK}" TIMEOUT 60 TLS_VERIFY ON)
     execute_process(COMMAND ${CMAKE_COMMAND} -E tar -xf "${DISCORD_GAME_SDK}" WORKING_DIRECTORY "${EXTERNALS_DIR}/discord")
-    if(CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
+    if(WIN32 AND CMAKE_HOST_SYSTEM_NAME STREQUAL "Linux")
       # Discord uses Windows.h (capital W) and that does not play nice when cross-compiling.
       # we want to patch with a lowercase windows.h
       message(STATUS "Patching discord_game_sdk.h, using a lowercase Windows.h (cross-compilation compatibility)")
       execute_process(COMMAND sed -i "s/<Windows.h>/<windows.h>/g" c/discord_game_sdk.h WORKING_DIRECTORY "${EXTERNALS_DIR}/discord")
     endif()
   endif()
-  
+  add_library(discord_h INTERFACE IMPORTED)
+  set_target_properties(discord_h PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${DISCORD_INCLUDE_PATH}"  
+  )
   add_library(discord SHARED IMPORTED)
   set_target_properties(discord PROPERTIES
-    IMPORTED_LOCATION "${DISCORD_LIB_PATH}/discord_game_sdk.dll"
-    IMPORTED_IMPLIB "${DISCORD_LIB_PATH}/discord_game_sdk.dll.lib"
-    INTERFACE_INCLUDE_DIRECTORIES "${EXTERNALS_DIR}/discord/c/"
+    IMPORTED_LOCATION "${DISCORD_LIB_PATH}/discord_game_sdk${CMAKE_SHARED_LIBRARY_SUFFIX}"
   )
+  
+  if (WIN32)
+    set_target_properties(discord PROPERTIES
+      IMPORTED_IMPLIB "${DISCORD_LIB_PATH}/discord_game_sdk.dll.lib"
+    )
+  endif()
+
+  target_link_libraries(discord INTERFACE discord_h)
 endif()
 
-# GLM
-set(GLM_BASE_PATH "${EXTERNALS_DIR}")
+# Meshoptimizer
+set(MESHOPTIMIZER_VERSION 0.16)
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.11)
+  include(FetchContent)
+  FetchContent_Declare(
+    meshoptimizer
+    GIT_REPOSITORY https://github.com/zeux/meshoptimizer/
+    GIT_TAG "v${MESHOPTIMIZER_VERSION}"
+  )
+  FetchContent_GetProperties(meshoptimizer)
+else()
+  # Poor man's FetchContent.
+  set(MESHOPTIMIZER_BASE_PATH "${EXTERNALS_DIR}")
+  set(meshoptimizer_POPULATED FALSE)
+  if(NOT EXISTS "${MESHOPTIMIZER_BASE_PATH}/meshoptimizer/CMakeLists.txt")
+    set(MESHOPTIMIZER_ZIP "${DOWNLOADS_DIR}/meshoptimizer.zip")
+    file(DOWNLOAD "https://github.com/zeux/meshoptimizer/archive/refs/tags/v${MESHOPTIMIZER_VERSION}.zip" "${MESHOPTIMIZER_ZIP}" TIMEOUT 60 TLS_VERIFY ON)
 
-if(NOT EXISTS "${GLM_BASE_PATH}/glm/CMakeLists.txt")
-  set(GLM_ZIP "${DOWNLOADS_DIR}/glm.zip")
-  file(DOWNLOAD "https://github.com/g-truc/glm/releases/download/0.9.9.8/glm-0.9.9.8.zip" "${GLM_ZIP}" TIMEOUT 60 TLS_VERIFY ON)
+    execute_process(COMMAND ${CMAKE_COMMAND} -E tar -xf "${MESHOPTIMIZER_ZIP}" WORKING_DIRECTORY "${MESHOPTIMIZER_BASE_PATH}")
+    execute_process(COMMAND ${CMAKE_COMMAND} -E rename "meshoptimizer-${MESHOPTIMIZER_VERSION}" meshoptimizer WORKING_DIRECTORY "${MESHOPTIMIZER_BASE_PATH}")
+  endif()
 
-  file(MAKE_DIRECTORY "${GLM_BASE_PATH}/glm")
-  execute_process(COMMAND ${CMAKE_COMMAND} -E tar -xf "${GLM_ZIP}" WORKING_DIRECTORY "${GLM_BASE_PATH}")
+  set(meshoptimizer_SOURCE_DIR "${MESHOPTIMIZER_BASE_PATH}/meshoptimizer")
+  set(meshoptimizer_BINARY_DIR "${PROJECT_BINARY_DIR}/externals/meshoptimizer")
 endif()
 
-add_subdirectory("${GLM_BASE_PATH}/glm" "${PROJECT_BINARY_DIR}/glm" EXCLUDE_FROM_ALL)
-
-
-# Set minimum target macOS version
-if(APPLE)
-    set(MACOSX_DEPLOYMENT_TARGET "10.10")
-    set(CMAKE_INSTALL_PREFIX ".")
+if(NOT meshoptimizer_POPULATED)
+  if(COMMAND FetchContent_Populate)
+    FetchContent_Populate(meshoptimizer)
+  endif()
+  add_subdirectory(${meshoptimizer_SOURCE_DIR} ${meshoptimizer_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
-
 
 set(SOURCES
     src/main.cpp
@@ -103,7 +146,6 @@ set(SOURCES
     src/pathPlanner.cpp
     src/epsilonServer.cpp
     src/particleEffect.cpp
-    src/mouseCalibrator.cpp
     src/httpScriptAccess.cpp
     src/modelInfo.cpp
     src/packResourceProvider.cpp
@@ -126,6 +168,7 @@ set(SOURCES
     src/GMMessage.cpp
     src/tutorialGame.cpp
     src/scriptDataStorage.cpp
+    src/shaderRegistry.cpp
     src/glObjects.cpp
     src/menus/joinServerMenu.cpp
     src/menus/serverBrowseMenu.cpp
@@ -281,11 +324,208 @@ set(SOURCES
     src/hardware/devices/uDMXDevice.cpp
     src/hardware/devices/virtualOutputDevice.cpp
     src/hardware/devices/philipsHueDevice.cpp
+
+    src/ai/aiFactory.h
+    src/ai/ai.h
+    src/ai/evasionAI.h
+    src/ai/fighterAI.h
+    src/ai/missileVolleyAI.h
+    src/beamTemplate.h
+    src/commsScriptInterface.h
+    src/discord.h
+    src/epsilonServer.h
+    src/factionInfo.h
+    src/featureDefs.h
+    src/gameGlobalInfo.h
+    src/gameStateLogger.h
+    src/glObjects.h
+    src/GMActions.h
+    src/GMMessage.h
+    src/GMScriptCallback.h
+    src/gui/colorConfig.h
+    src/gui/debugRenderer.h
+    src/gui/gui2_advancedscrolltext.h
+    src/gui/gui2_arrowbutton.h
+    src/gui/gui2_arrow.h
+    src/gui/gui2_autolayout.h
+    src/gui/gui2_button.h
+    src/gui/gui2_canvas.h
+    src/gui/gui2_container.h
+    src/gui/gui2_element.h
+    src/gui/gui2_entrylist.h
+    src/gui/gui2_image.h
+    src/gui/gui2_keyvaluedisplay.h
+    src/gui/gui2_label.h
+    src/gui/gui2_listbox.h
+    src/gui/gui2_overlay.h
+    src/gui/gui2_panel.h
+    src/gui/gui2_progressbar.h
+    src/gui/gui2_progressslider.h
+    src/gui/gui2_resizabledialog.h
+    src/gui/gui2_rotationdial.h
+    src/gui/gui2_scrollbar.h
+    src/gui/gui2_scrolltext.h
+    src/gui/gui2_selector.h
+    src/gui/gui2_slider.h
+    src/gui/gui2_textentry.h
+    src/gui/gui2_togglebutton.h
+    src/gui/hotkeyBinder.h
+    src/gui/hotkeyConfig.h
+    src/gui/joystickConfig.h
+    src/gui/mouseRenderer.h
+    src/gui/scriptError.h
+    src/hardware/devices/dmx512SerialDevice.h
+    src/hardware/devices/enttecDMXProDevice.h
+    src/hardware/devices/philipsHueDevice.h
+    src/hardware/devices/sACNDMXDevice.h
+    src/hardware/devices/uDMXDevice.h
+    src/hardware/devices/virtualOutputDevice.h
+    src/hardware/hardwareController.h
+    src/hardware/hardwareMappingEffects.h
+    src/hardware/hardwareOutputDevice.h
+    src/hardware/serialDriver.h
+    src/httpScriptAccess.h
+    src/main.h
+    src/math/centerOfMass.h
+    src/math/triangulate.h
+    src/menus/autoConnectScreen.h
+    src/menus/hotkeyMenu.h
+    src/menus/joinServerMenu.h
+    src/menus/mainMenus.h
+    src/menus/optionsMenu.h
+    src/menus/serverBrowseMenu.h
+    src/menus/serverCreationScreen.h
+    src/menus/shipSelectionScreen.h
+    src/menus/tutorialMenu.h
+    src/mesh.h
+    src/missileWeaponData.h
+    src/modelData.h
+    src/modelInfo.h
+    src/packResourceProvider.h
+    src/particleEffect.h
+    src/pathPlanner.h
+    src/playerInfo.h
+    src/preferenceManager.h
+    src/repairCrew.h
+    src/scenarioInfo.h
+    src/scienceDatabase.h
+    src/screenComponents/aimLock.h
+    src/screenComponents/alertOverlay.h
+    src/screenComponents/beamFrequencySelector.h
+    src/screenComponents/beamTargetSelector.h
+    src/screenComponents/combatManeuver.h
+    src/screenComponents/commsOverlay.h
+    src/screenComponents/customShipFunctions.h
+    src/screenComponents/databaseView.h
+    src/screenComponents/dockingButton.h
+    src/screenComponents/frequencyCurve.h
+    src/screenComponents/globalMessage.h
+    src/screenComponents/hackingDialog.h
+    src/screenComponents/helpOverlay.h
+    src/screenComponents/impulseControls.h
+    src/screenComponents/impulseSound.h
+    src/screenComponents/indicatorOverlays.h
+    src/screenComponents/jumpControls.h
+    src/screenComponents/jumpIndicator.h
+    src/screenComponents/lightsOut.h
+    src/screenComponents/mainScreenControls.h
+    src/screenComponents/mineSweeper.h
+    src/screenComponents/miniGame.h
+    src/screenComponents/missileTubeControls.h
+    src/screenComponents/noiseOverlay.h
+    src/screenComponents/onScreenKeyboard.h
+    src/screenComponents/openCommsButton.h
+    src/screenComponents/powerDamageIndicator.h
+    src/screenComponents/radarView.h
+    src/screenComponents/rawScannerDataRadarOverlay.h
+    src/screenComponents/rotatingModelView.h
+    src/screenComponents/scanningDialog.h
+    src/screenComponents/scanTargetButton.h
+    src/screenComponents/scrollingBanner.h
+    src/screenComponents/selfDestructButton.h
+    src/screenComponents/selfDestructEntry.h
+    src/screenComponents/selfDestructIndicator.h
+    src/screenComponents/shieldFreqencySelect.h
+    src/screenComponents/shieldsEnableButton.h
+    src/screenComponents/shipDestroyedPopup.h
+    src/screenComponents/shipInternalView.h
+    src/screenComponents/shipsLogControl.h
+    src/screenComponents/signalQualityIndicator.h
+    src/screenComponents/snapSlider.h
+    src/screenComponents/targetsContainer.h
+    src/screenComponents/viewport3d.h
+    src/screenComponents/viewportMainScreen.h
+    src/screenComponents/warpControls.h
+    src/screens/cinematicViewScreen.h
+    src/screens/crew1/singlePilotScreen.h
+    src/screens/crew4/engineeringAdvancedScreen.h
+    src/screens/crew4/operationsScreen.h
+    src/screens/crew4/tacticalScreen.h
+    src/screens/crew6/engineeringScreen.h
+    src/screens/crew6/helmsScreen.h
+    src/screens/crew6/relayScreen.h
+    src/screens/crew6/scienceScreen.h
+    src/screens/crew6/weaponsScreen.h
+    src/screens/crewStationScreen.h
+    src/screens/extra/commsScreen.h
+    src/screens/extra/damcon.h
+    src/screens/extra/databaseScreen.h
+    src/screens/extra/powerManagement.h
+    src/screens/extra/shipLogScreen.h
+    src/screens/gm/chatDialog.h
+    src/screens/gm/gameMasterScreen.h
+    src/screens/gm/globalMessageEntryView.h
+    src/screens/gm/objectCreationView.h
+    src/screens/gm/tweak.h
+    src/screens/mainScreen.h
+    src/screens/spectatorScreen.h
+    src/screens/topDownScreen.h
+    src/screens/windowScreen.h
+    src/script.h
+    src/shaderRegistry.h
+    src/shipTemplate.h
+    src/spaceObjects/artifact.h
+    src/spaceObjects/asteroid.h
+    src/spaceObjects/beamEffect.h
+    src/spaceObjects/blackHole.h
+    src/spaceObjects/cpuShip.h
+    src/spaceObjects/electricExplosionEffect.h
+    src/spaceObjects/explosionEffect.h
+    src/spaceObjects/mine.h
+    src/spaceObjects/missiles/EMPMissile.h
+    src/spaceObjects/missiles/homingMissile.h
+    src/spaceObjects/missiles/hvli.h
+    src/spaceObjects/missiles/missileWeapon.h
+    src/spaceObjects/missiles/nuke.h
+    src/spaceObjects/nebula.h
+    src/spaceObjects/planet.h
+    src/spaceObjects/playerSpaceship.h
+    src/spaceObjects/scanProbe.h
+    src/spaceObjects/shipTemplateBasedObject.h
+    src/spaceObjects/spaceObject.h
+    src/spaceObjects/spaceship.h
+    src/spaceObjects/spaceshipParts/beamWeapon.h
+    src/spaceObjects/spaceshipParts/weaponTube.h
+    src/spaceObjects/spaceStation.h
+    src/spaceObjects/supplyDrop.h
+    src/spaceObjects/warpJammer.h
+    src/spaceObjects/wormHole.h
+    src/spaceObjects/zone.h
+    src/threatLevelEstimate.h
+    src/tutorialGame.h
 )
 
-if (WIN32)
-  list(APPEND SOURCES EmptyEpsilon.rc src/discord.cpp)
+if (WITH_DISCORD)
+  list(APPEND SOURCES src/discord.cpp)
 endif()
+
+if (WIN32)
+  list(APPEND SOURCES EmptyEpsilon.rc)
+endif()
+
+# Config header.
+configure_file(cmake/config.h.in include/config.h)
+
 
 if(ANDROID)
     add_library(${PROJECT_NAME} SHARED ${SOURCES})
@@ -293,44 +533,37 @@ else()
     add_executable(${PROJECT_NAME} MACOSX_BUNDLE ${SOURCES})
 endif()
 
-target_compile_definitions(seriousproton_deps
-    INTERFACE
-        WINDOW_TITLE="${PROJECT_NAME}"
-        VERSION_NUMBER=${PROJECT_VERSION_MAJOR}${PROJECT_VERSION_MINOR}${PROJECT_VERSION_PATCH}
-
+target_compile_definitions(${PROJECT_NAME}
+    PUBLIC
         # Set RESOURCE_BASE_DIR on Unix so the built binary is able to find resources
-        $<$<BOOL:${UNIX}>:RESOURCE_BASE_DIR="${CMAKE_INSTALL_PREFIX}/share/emptyepsilon/">
+        $<$<BOOL:${UNIX}>:RESOURCE_BASE_DIR="${CMAKE_INSTALL_FULL_DATADIR}/emptyepsilon/">
         $<$<BOOL:${CONFIG_DIR}>:CONFIG_DIR="${CONFIG_DIR}">
-        $<$<NOT:$<BOOL:${CONFIG_DIR}>>:CONFIG_DIR="${CMAKE_INSTALL_PREFIX}/share/emptyepsilon/">
+        $<$<NOT:$<BOOL:${CONFIG_DIR}>>:CONFIG_DIR="${CMAKE_INSTALL_FULL_DATADIR}/emptyepsilon/">
 )
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
-)
-
-add_library(opengl INTERFACE)
-target_link_libraries(opengl
-    INTERFACE
-        "$<IF:$<BOOL:${ANDROID}>,GLESv1_CM;EGL,OpenGL::GL>"
+        "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src;${CMAKE_CURRENT_BINARY_DIR}/include>"
 )
 
 target_link_libraries(${PROJECT_NAME}
     PUBLIC
-        seriousproton glm::glm opengl
+        seriousproton meshoptimizer
         "$<$<BOOL:${ANDROID}>:log;android>"
-        "$<$<BOOL:${WIN32}>:iphlpapi;discord>"
-        "$<$<PLATFORM_ID:Darwin>:-framework Foundation>"   
+        "$<$<BOOL:${WIN32}>:iphlpapi>"
+        "$<$<BOOL:${WITH_DISCORD}>:discord_h>"
+        "$<$<PLATFORM_ID:Darwin>:-framework Foundation>"
 )
+if(WIN32)
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_link_libraries(${PROJECT_NAME} PUBLIC "-mconsole")
+    endif()
+endif()
 
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/osx/MacOSXBundleInfo.plist.in
         MACOSX_BUNDLE_ICON_FILE "${PROJECT_NAME}.icns")
-
-if(ANDROID)
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--whole-archive ${SFML_INSTALL_PATH}/lib/${ANDROID_ABI}/libsfml-main.a -Wl,--no-whole-archive")
-endif()
 
 include(InstallRequiredSystemLibraries)
 
@@ -341,20 +574,31 @@ if(WIN32)
     install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION .)
     install(DIRECTORY ${EE_RESOURCES} DESTINATION .)
 
-    install(FILES "$<TARGET_PROPERTY:discord,IMPORTED_LOCATION>" DESTINATION .)
     if(MSVC)
       # Not all configuration emit a pdb (ie Release), make this optional.
       install(FILES "$<TARGET_PDB_FILE:${PROJECT_NAME}>" DESTINATION . OPTIONAL)
     endif()
 elseif(APPLE)
-  install(FILES logo.icns DESTINATION "${PROJECT_NAME}.app/Contents/Resources" RENAME "${PROJECT_NAME}.icns")
-  install(DIRECTORY ${EE_RESOURCES} DESTINATION "${PROJECT_NAME}.app/Contents/Resources")
+  install(FILES logo.icns DESTINATION "$<TARGET_BUNDLE_CONTENT_DIR:${PROJECT_NAME}>/Resources" RENAME "${PROJECT_NAME}.icns")
+  install(DIRECTORY ${EE_RESOURCES} DESTINATION "$<TARGET_BUNDLE_CONTENT_DIR:${PROJECT_NAME}>/Resources")
 elseif(ANDROID)
-  android_apk(EmptyEpsilon)
+  android_apk(EmptyEpsilon ${APK_WITH_PACKS})
 else()
-    include(GNUInstallDirs)
     install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
     install(DIRECTORY ${EE_RESOURCES} DESTINATION "${CMAKE_INSTALL_DATADIR}/emptyepsilon")
+endif()
+
+if(WITH_DISCORD)
+    set(discord_install_prefix)
+    if(WIN32)
+        set(discord_install_prefix ".")
+    elseif(APPLE)
+        set(discord_install_prefix "${PROJECT_NAME}.app/Contents/Resources")
+    else()
+        set(discord_install_prefix "${CMAKE_INSTALL_DATADIR}/emptyepsilon")
+    endif()
+
+    install(PROGRAMS "$<TARGET_PROPERTY:discord,IMPORTED_LOCATION>" DESTINATION "${discord_install_prefix}/plugins")
 endif()
 
 find_package(PythonInterp)
@@ -369,33 +613,110 @@ if(PYTHONINTERP_FOUND)
   
   # Matches install logic above.
   if(WIN32)
-    install(FILES "${SCRIPT_REFERENCE_HTML}" DESTINATION .)
+    install(FILES "${SCRIPT_REFERENCE_HTML}" DESTINATION . OPTIONAL)
   elseif(APPLE)
-    install(FILES "${SCRIPT_REFERENCE_HTML}" DESTINATION "${PROJECT_NAME}.app/Contents/Resources")
+    install(FILES "${SCRIPT_REFERENCE_HTML}" DESTINATION "$<TARGET_BUNDLE_CONTENT_DIR:${PROJECT_NAME}>/Resources" OPTIONAL)
   elseif(NOT ANDROID)
     # DOCDIR already has PROJECT_NAME (EmptyEpsilon) appended (from CMake docs)
-    install(FILES "${SCRIPT_REFERENCE_HTML}" DESTINATION "${CMAKE_INSTALL_DOCDIR}")
+    install(FILES "${SCRIPT_REFERENCE_HTML}" DESTINATION "${CMAKE_INSTALL_DOCDIR}" OPTIONAL)
   endif()
 endif()
 
 add_custom_target(update_locale
-    COMMAND sed -i "/^#: /d" resources/locale/en.po
-    COMMAND sed -i "/^#: /d" resources/locale/tutorial.en.po
-    COMMAND xgettext --keyword=tr:1c,2 --keyword=tr:1 --keyword=trMark:1c,2 --keyword=trMark:1 --omit-header -j -d resources/locale/en ${SOURCES}
-    COMMAND xgettext --keyword=_:1c,2 --keyword=_:1 --omit-header -j -d resources/locale/en scripts/shipTemplates_*.lua scripts/comms_ship.lua scripts/comms_station.lua scripts/comms_supply_drop.lua scripts/factionInfo.lua scripts/science_db.lua
-    COMMAND xgettext --keyword=_:1c,2 --keyword=_:1 --omit-header -j -d resources/locale/tutorial.en scripts/tutorial_*.lua
+    COMMAND xgettext --keyword=tr:1c,2 --keyword=tr:1 --keyword=trMark:1c,2 --keyword=trMark:1 --omit-header -d resources/locale/main.en ${SOURCES}
+    COMMAND xgettext --keyword=_:1c,2 --keyword=_:1 --omit-header -j -d resources/locale/main.en scripts/shiptemplates/*.lua scripts/comms_ship.lua scripts/comms_station.lua scripts/comms_supply_drop.lua scripts/factionInfo.lua scripts/science_db.lua
+    COMMAND xgettext --keyword=_:1c,2 --keyword=_:1 --omit-header -d resources/locale/tutorial.en scripts/tutorial/*.lua scripts/tutorialUtils.lua
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
-set(CPACK_PACKAGE_EXECUTABLES ${PROJECT_NAME})
+if(APPLE)
+  # This *MUST* be the last install target.
+  # Otherwise, for some messed up reason,
+  # other install targets will not be accounted for when creating a DMG bundle.
+  install(TARGETS ${PROJECT_NAME} BUNDLE DESTINATION . RUNTIME DESTINATION bin)
+endif()
+
+# Generic settings
+set(CPACK_PACKAGE_EXECUTABLES "${PROJECT_NAME};Empty Epsilon (${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH})")
 set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_CONTACT "https://github.com/daid/")
+
+set(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/logo.png")
+set(CPACK_PACKAGE_CHECKSUM SHA256)
+
+# WIX (win installer)
+# Setup the upgrade GUID to have one per version.
+# https://tools.ietf.org/html/rfc4122#appendix-C
+set(GUID_NAMESPACE_URL 6ba7b810-9dad-11d1-80b4-00c04fd430c8) # "Name string is URL" - in the appendix linked above.
+string(UUID EMPTYEPSILON_GUID NAMESPACE ${GUID_NAMESPACE_URL} NAME "https://github.com/daid/EmptyEpsilon" TYPE SHA1)
+
+string(UUID CPACK_WIX_UPGRADE_GUID NAMESPACE ${EMPTYEPSILON_GUID} NAME "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}" TYPE SHA1)
+set(CPACK_WIX_UI_BANNER "${CMAKE_CURRENT_SOURCE_DIR}/resources/logo_full.png")
+set(CPACK_WIX_UI_DIALOG "${CMAKE_CURRENT_SOURCE_DIR}/resources/logo_white.png")
+# Add/Remove programs info.
+set(CPACK_WIX_PROPERTY_ARPHELPLINK "https://daid.github.io/EmptyEpsilon/#tabs=6")
+set(CPACK_WIX_PROPERTY_APPURLINFOABOUT "https://daid.github.io/EmptyEpsilon/#tabs=0")
+set(CPACK_WIX_PROPERTY_ARPURLUPDATEINFO "https://daid.github.io/EmptyEpsilon/#tabs=5")
+set(CPACK_WIX_PRODUCT_ICON "${CMAKE_CURRENT_SOURCE_DIR}/logo.ico")
+
 if(NOT DEFINED CPACK_GENERATOR)
   if(WIN32)
     set(CPACK_GENERATOR "ZIP")
   elseif(UNIX)
     set(CPACK_GENERATOR "DEB")
-    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsfml-dev")
+    set(CPACK_DEBIAN_PACKAGE_DEPENDS "libfreetype6, libsdl2-2.0-0")
   endif()
+endif()
+
+# Allows injection of per-generator logic.
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPackProjectConfig.cmake.in" "${PROJECT_BINARY_DIR}/CPackProjectConfig.cmake" @ONLY)
+set(CPACK_PROJECT_CONFIG_FILE "${PROJECT_BINARY_DIR}/CPackProjectConfig.cmake")
+
+if(APPLE)
+  if("DragNDrop" IN_LIST CPACK_GENERATOR)
+    if(SDL2_LIBRARIES MATCHES "\\.framework$")
+      # SDL2_LIBRARIES points to the framework itself.
+      # For fixup_bundle to pick it up, we need to get its parent directory as the 'root'.
+      # SDL2 also depends on hidapi.framework, which comes with the official DMG (https://libsdl.org/download-2.0.php)
+      # Same idea - need the path to it for the dependency manager to pick it up.
+      install(CODE "
+        include(BundleUtilities)
+        fixup_bundle(\"\${CMAKE_INSTALL_PREFIX}/EmptyEpsilon.app\" \"\" \"${SDL2_LIBRARIES}/..;${SDL2_LIBRARIES}/Versions/Current/Frameworks\")
+      ")
+    else()
+      message(WARNING "macOS DMG packaging: ${SDL2_LIBRARIES} does not appear to be a framework. The bundle will not be fixed up properly.")
+    endif()
+  endif()
+endif()
+
+set(sp_runtime_root "/")
+
+if ("WIX" IN_LIST CPACK_GENERATOR)    
+    if (EmptyEpsilon_VERSION_MAJOR GREATER 100)
+	    # WIX does not like major version number > 256.
+	    # So if we're above 100, assume it's a year-like format and strip out century/millenium.
+	    math(EXPR wix_major "${EmptyEpsilon_VERSION_MAJOR} % 100")
+
+        # WIX only care for the bundled PACKAGE_VERSION - fix only this one.
+        set(CPACK_PACKAGE_VERSION "${wix_major}.${EmptyEpsilon_VERSION_MINOR}.${EmptyEpsilon_VERSION_PATCH}")
+    endif()
+    
+    # WIX is... weird.
+    # When packaging, it puts each 'component' into a subdirectory.
+    # Things without a specific component fall under an 'Unspecified' catch-all one[1]
+    # Now when using components, with install targets coming from different projects (via the CPACK_INSTALL_CMAKE_PROJECTS below)
+    # it seems it's just... lost: components ends up in the root directory of the packaging tree instead of the component's.
+    # So we shove everything that's coming from runtime straight under the 'runtime' tree, and voila, we pleased the CMake gods.
+    #
+    # [1]: https://cmake.org/cmake/help/v3.8/variable/CMAKE_INSTALL_DEFAULT_COMPONENT_NAME.html#variable:CMAKE_INSTALL_DEFAULT_COMPONENT_NAME
+    set(sp_runtime_root "/runtime")
+endif()
+
+if(WIN32)
+    # Since the runtime component is mandatory, no point in presenting it to the user.
+    # This ensures we only display one entry as a 'bundle' in the MSI.
+    set(CPACK_COMPONENT_UNSPECIFIED_DEPENDS runtime)
+    set(CPACK_COMPONENT_RUNTIME_HIDDEN TRUE)
+    set(CPACK_COMPONENT_RUNTIME_REQUIRED TRUE)
 endif()
 
 # Setup install targets:
@@ -403,7 +724,12 @@ endif()
 # - For SP, we use only the things having the 'runtime' component (ie shared libs).
 set(CPACK_INSTALL_CMAKE_PROJECTS
     "${PROJECT_BINARY_DIR};${PROJECT_NAME};ALL;/"
-    "${PROJECT_BINARY_DIR}/SeriousProton;SeriousProton;runtime;/"
+    "${PROJECT_BINARY_DIR}/SeriousProton;SeriousProton;runtime;${sp_runtime_root}"
 )
 
 include(CPack)
+
+if(UNIX AND NOT APPLE)
+  install(FILES EmptyEpsilon.desktop DESTINATION "share/applications")
+  install(FILES logo.png DESTINATION "share/icons" RENAME "EmptyEpsilon.png")
+endif()

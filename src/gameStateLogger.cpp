@@ -154,11 +154,11 @@ void GameStateLogger::stop()
 
 void GameStateLogger::update(float delta)
 {
-    if (!log_file || delta == 0.0)
+    if (!log_file || delta == 0.0f)
         return;
 
     logging_delay -= delta;
-    if (logging_delay > 0.0)
+    if (logging_delay > 0.0f)
         return;
     logging_delay = logging_interval;
 
@@ -386,9 +386,12 @@ void GameStateLogger::writeShipEntry(JSONGenerator& json, P<SpaceShip> ship)
                 JSONGenerator system = systems.createDict(getSystemName(ESystem(n)).c_str());
                 system.write("health", ship->systems[n].health);
                 system.write("power_level", ship->systems[n].power_level);
+                system.write("power_rate_per_second", ship->systems[n].power_rate_per_second);
                 system.write("power_request", ship->systems[n].power_request);
                 system.write("heat", ship->systems[n].heat_level);
+                system.write("heat_rate_per_second", ship->systems[n].heat_rate_per_second);
                 system.write("coolant_level", ship->systems[n].coolant_level);
+                system.write("coolant_rate_per_second", ship->systems[n].coolant_rate_per_second);
                 system.write("coolant_request", ship->systems[n].coolant_request);
                 system.write("power_factor", ship->systems[n].power_factor);
             }
@@ -433,6 +436,8 @@ void GameStateLogger::writeShipEntry(JSONGenerator& json, P<SpaceShip> ship)
         config.write("turn_speed", ship->turn_speed);
         config.write("impulse_speed", ship->impulse_max_speed);
         config.write("impulse_acceleration", ship->impulse_acceleration);
+        config.write("impulse_reverse_speed", ship->impulse_max_reverse_speed);
+        config.write("impulse_reverse_acceleration", ship->impulse_reverse_acceleration);
         config.write("hull", ship->hull_max);
         if (ship->has_warp_drive)
             config.write("warp", ship->warp_speed_per_warp_level);
